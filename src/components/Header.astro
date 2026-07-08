@@ -74,4 +74,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     const open = menu?.classList.toggle("hidden") === false;
     toggle.setAttribute("aria-expanded", String(open));
   });
+
+  // Close the menu on link tap — matters for same-page anchor links,
+  // where no navigation happens to dismiss it.
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.add("hidden");
+      toggle?.setAttribute("aria-expanded", "false");
+    });
+  });
 </script>

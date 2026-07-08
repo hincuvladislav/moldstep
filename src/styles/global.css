@@ -133,4 +133,74 @@
   .input-dark::placeholder {
     color: #565c68;
   }
+
+  /* Expandable card details: hover on pointer devices, tap-to-toggle on touch */
+  .expandable {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.4s;
+  }
+
+  @media (hover: hover) {
+    [data-expand]:hover .expandable {
+      max-height: 340px;
+      opacity: 1;
+    }
+  }
+
+  [data-expand].is-open .expandable {
+    max-height: 340px;
+    opacity: 1;
+  }
+
+  /* Open state on touch mirrors the desktop hover treatment */
+  [data-expand].is-open {
+    transform: translateY(-4px);
+    border-color: var(--color-ink);
+    box-shadow: 0 24px 48px rgba(24, 24, 27, 0.14);
+  }
+
+  [data-expand] [data-expand-icon] {
+    display: inline-block;
+    transition: transform 0.3s;
+  }
+
+  [data-expand].is-open [data-expand-icon] {
+    transform: rotate(90deg);
+  }
+
+  [data-expand].is-open [data-expand-icon="plus"] {
+    transform: rotate(45deg);
+  }
+
+  /* Visible only on touch devices */
+  .touch-hint {
+    display: none;
+  }
+
+  @media (hover: none) {
+    .touch-hint {
+      display: inline-block;
+    }
+  }
+}
+
+/* No mouse on touch devices — give 3D scenes a slow idle sway instead of parallax */
+@media (hover: none) {
+  [data-scene] {
+    animation: ms-scene-sway 10s ease-in-out infinite;
+  }
+}
+
+@keyframes ms-scene-sway {
+  0%,
+  100% {
+    transform: rotateX(calc(var(--bx, 12deg) - 3deg)) rotateY(calc(var(--by, -16deg) - 5deg));
+  }
+  50% {
+    transform: rotateX(calc(var(--bx, 12deg) + 3deg)) rotateY(calc(var(--by, -16deg) + 5deg));
+  }
 }

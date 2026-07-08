@@ -61,6 +61,13 @@ const pageTitle = title === site.name ? `${site.name} — ${site.tagline}` : `${
         });
       });
 
+      // Touch devices: hover never fires, so expandable cards toggle on tap.
+      if (window.matchMedia("(hover: none)").matches) {
+        document.querySelectorAll<HTMLElement>("[data-expand]").forEach((card) => {
+          card.addEventListener("click", () => card.classList.toggle("is-open"));
+        });
+      }
+
       // 3D tilt for cards: strength via data-tilt, lift via data-lift.
       document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((el) => {
         const strength = parseFloat(el.dataset.tilt || "8");
