@@ -1,92 +1,190 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import CaseArt from "@components/CaseArt.astro";
 import CtaSection from "@components/CtaSection.astro";
-import SectionHeading from "@components/SectionHeading.astro";
+import MiniScene from "@components/MiniScene.astro";
+import ProcessTimeline from "@components/ProcessTimeline.astro";
 import { caseStudies, services, site } from "@lib/site";
 
-const process = [
-  {
-    step: "01",
-    title: "Discover",
-    text: "A short, focused conversation about your goals, constraints, and current systems. No sales theater.",
-  },
-  {
-    step: "02",
-    title: "Design",
-    text: "We propose the simplest architecture that solves the problem — with a clear scope, timeline, and budget.",
-  },
-  {
-    step: "03",
-    title: "Build",
-    text: "Short iterations, working software every week, and full visibility into progress from day one.",
-  },
-  {
-    step: "04",
-    title: "Support",
-    text: "We stay after launch: monitoring, improvements, and a team that already knows your codebase.",
-  },
-];
-
-const reasons = [
-  {
-    title: "Senior engineers only",
-    text: "Every project is delivered by experienced engineers — no hand-offs to juniors after the contract is signed.",
-  },
-  {
-    title: "AI where it pays off",
-    text: "We build AI systems for real workflows and measurable outcomes, not for the demo. If AI isn't the answer, we'll say so.",
-  },
-  {
-    title: "Boring, reliable delivery",
-    text: "Proven stacks, automated testing, CI/CD, and honest estimates. Surprises belong in the product, not the invoice.",
-  },
+const stats = [
+  { value: "85%", label: "less manual document handling on our last AI rollout" },
+  { value: "<3 mo", label: "from kickoff to deployed, adopted software" },
+  { value: "100%", label: "senior engineers — no hand-offs to juniors" },
 ];
 ---
 
 <BaseLayout title={site.name}>
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-[#1b1e25]" data-parallax>
+    <div class="hero-grid absolute inset-0"></div>
     <div
-      class="pointer-events-none absolute inset-0 [background-image:linear-gradient(var(--color-line)_1px,transparent_1px),linear-gradient(90deg,var(--color-line)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
+      class="pointer-events-none absolute -top-40 left-[55%] h-[400px] w-[760px] -translate-x-1/2 rounded-full bg-white/5 blur-[80px]"
     >
     </div>
-    <div class="container-site relative py-24 md:py-36">
-      <p class="eyebrow mb-5">Custom AI · Software · Consulting</p>
-      <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
-        Software and AI that actually ship — and actually pay off.
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg text-muted">
-        {site.legalName} builds custom AI-powered applications and provides pragmatic IT consulting. From first idea to
-        production and beyond — one senior team, end to end.
-      </p>
-      <div class="mt-10 flex flex-wrap gap-4">
-        <a href="/contact" class="btn-primary">Start a project</a>
-        <a href="/services" class="btn-secondary">Explore services</a>
+
+    <div class="container-site relative flex flex-wrap items-center gap-10 pt-16 pb-24 md:pt-22">
+      <div class="min-w-0 flex-1 md:min-w-[440px]">
+        <div class="eyebrow flex items-center gap-2.5 text-dusk-3">
+          <span class="h-px w-6 bg-[#3d414c]"></span>Custom AI · Software · Consulting
+        </div>
+        <h1 class="mt-[26px] text-[clamp(40px,4.8vw,62px)] leading-[1.04] font-semibold tracking-[-0.03em]">
+          Software and AI that actually ship — <span class="text-dusk-3">and actually pay off.</span>
+        </h1>
+        <p class="mt-7 max-w-[540px] text-lg leading-[1.65] text-dusk">
+          {site.name} builds custom AI-powered applications and provides pragmatic IT consulting. From first idea to
+          production and beyond — one senior team, end to end.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3.5">
+          <a href="/contact" class="btn-light">Start a project</a>
+          <a href="/services" class="btn-ghost-dark">Explore services</a>
+        </div>
+      </div>
+
+      <!-- 3D scene: node graph, code window, deployed check -->
+      <div class="pointer-events-none mx-auto h-[420px] w-[min(480px,90vw)] flex-none [perspective:1200px]">
+        <div
+          class="relative h-full w-full transition-transform duration-[250ms] ease-out [transform-style:preserve-3d]"
+          style="transform:rotateX(12deg) rotateY(-16deg)"
+          data-scene
+          data-base-x="12"
+          data-base-y="-16"
+          data-range-x="14"
+          data-range-y="18"
+        >
+          <!-- back panel: node graph -->
+          <div
+            class="absolute top-6 right-4 h-[180px] w-[280px] rounded-2xl border border-edge-2 bg-night-card/90 shadow-[0_30px_60px_rgba(0,0,0,0.45)]"
+            style="transform:translateZ(-80px);animation:ms-float 7s ease-in-out infinite"
+          >
+            <svg viewBox="0 0 280 180" width="280" height="180">
+              <path
+                d="M60 90 L140 50 M140 50 L220 90 M60 90 L140 130 M140 130 L220 90"
+                stroke="#33373f"
+                stroke-width="2"
+                stroke-dasharray="4 6"
+                style="animation:ms-dash 3s linear infinite"></path>
+              <circle cx="60" cy="90" r="10" fill="#272a33" stroke="#3d414c" stroke-width="2"></circle>
+              <circle cx="140" cy="50" r="10" fill="#272a33" stroke="#3d414c" stroke-width="2"></circle>
+              <circle cx="140" cy="130" r="10" fill="#272a33" stroke="#3d414c" stroke-width="2"></circle>
+              <circle cx="220" cy="90" r="14" fill="#ffffff"></circle>
+              <path d="M220 82l2.4 5.2 5.6 0.6-4.2 3.9 1.2 5.6-5-2.9-5 2.9 1.2-5.6-4.2-3.9 5.6-0.6z" fill="#0e0f13"></path>
+            </svg>
+          </div>
+
+          <!-- middle panel: code window -->
+          <div
+            class="absolute top-24 left-3 h-[210px] w-[300px] rounded-2xl border border-edge-3 bg-night-card shadow-[0_30px_70px_rgba(0,0,0,0.55)]"
+            style="transform:translateZ(0px);animation:ms-float2 6s ease-in-out infinite 0.5s"
+          >
+            <div class="flex gap-1.5 border-b border-edge-2 px-4 py-3.5">
+              <span class="size-[9px] rounded-full bg-edge-4"></span>
+              <span class="size-[9px] rounded-full bg-edge-4"></span>
+              <span class="size-[9px] rounded-full bg-edge-4"></span>
+            </div>
+            <div class="flex flex-col gap-3 px-5 py-[18px]">
+              <div class="flex gap-2">
+                <span class="h-[9px] w-[70px] rounded-[5px] bg-[#4a5060]"></span>
+                <span class="h-[9px] w-[110px] rounded-[5px] bg-edge-2"></span>
+              </div>
+              <div class="flex gap-2 pl-[18px]"><span class="h-[9px] w-[130px] rounded-[5px] bg-edge-2"></span></div>
+              <div class="flex gap-2 pl-[18px]">
+                <span class="h-[9px] w-[90px] rounded-[5px] bg-[#3d414c]"></span>
+                <span class="h-[9px] w-[50px] rounded-[5px] bg-edge-2"></span>
+              </div>
+              <div class="flex gap-2"><span class="h-[9px] w-[60px] rounded-[5px] bg-edge-2"></span></div>
+              <div class="flex items-center gap-2">
+                <span class="h-[9px] w-[100px] rounded-[5px] bg-edge-2"></span>
+                <span class="h-3.5 w-2 bg-white" style="animation:ms-pulse 1.2s ease-in-out infinite"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- front panel: shipped check -->
+          <div
+            class="absolute right-9 bottom-9 flex h-[84px] w-[230px] items-center gap-3.5 rounded-[14px] border border-edge-4 bg-night-card/95 px-5 shadow-[0_26px_50px_rgba(0,0,0,0.6)]"
+            style="transform:translateZ(90px);animation:ms-float 5.5s ease-in-out infinite 1s"
+          >
+            <span class="grid size-9 flex-none place-items-center rounded-full bg-white">
+              <svg viewBox="0 0 20 20" width="18" height="18">
+                <path d="M4 10.5l4 4 8-9" stroke="#0e0f13" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <div class="flex flex-col gap-1.5">
+              <span class="text-[13px] font-semibold">Deployed to production</span>
+              <span class="font-mono text-[11px] text-dusk-3">build #214 · 34s · all checks green</span>
+            </div>
+          </div>
+
+          <!-- floating chip -->
+          <div
+            class="absolute top-1.5 left-16 rounded-full border border-edge-3 bg-night-card/90 px-4 py-2 font-mono text-[11px] text-dusk-2"
+            style="transform:translateZ(50px);animation:ms-float2 6.5s ease-in-out infinite 0.2s"
+          >
+            RAG · LLM · automation
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- stats -->
+    <div class="container-site relative pb-14">
+      <div class="flex flex-col gap-6 border-t border-edge pt-7 sm:flex-row sm:gap-0">
+        {
+          stats.map((s, i) => (
+            <div class:list={["flex-1", i > 0 && "sm:border-l sm:border-edge sm:pl-8"]}>
+              <div class="text-[30px] font-semibold tracking-[-0.02em]">{s.value}</div>
+              <div class="mt-1 text-[13px] text-dusk-3">{s.label}</div>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Services preview -->
-  <section class="border-t border-line bg-surface">
-    <div class="container-site py-20 md:py-28">
-      <SectionHeading
-        eyebrow="What we do"
-        title="One partner for AI, software, and strategy"
-        text="Custom applications with AI at the core, plus the consulting to make sure you're building the right thing."
-      />
-      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <!-- SERVICES -->
+  <section id="services" class="border-b border-line bg-surface text-ink">
+    <div class="container-site py-22">
+      <div class="flex flex-wrap items-end justify-between gap-8">
+        <div>
+          <div class="eyebrow text-faint">What we do</div>
+          <h2 class="mt-3.5 text-[40px] font-semibold tracking-[-0.025em]">One partner for AI, software, and strategy</h2>
+        </div>
+        <p class="max-w-[360px] text-[15px] leading-relaxed text-slate">
+          Custom applications with AI at the core, plus the consulting to make sure you're building the right thing.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {
-          services.map((service, i) => (
+          services.map((s) => (
             <a
               href="/services"
-              class="group flex flex-col rounded-xl border border-line bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-muted hover:shadow-sm"
+              class="group flex cursor-pointer flex-col gap-2.5 rounded-[14px] border border-line-2 bg-white p-7 shadow-[0_1px_2px_rgba(24,24,27,0.04)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-ink hover:shadow-[0_24px_48px_rgba(24,24,27,0.14)]"
             >
-              <span class="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
-              <h3 class="mt-3 text-lg font-semibold">{service.title}</h3>
-              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{service.description}</p>
-              <span class="mt-4 text-sm font-medium text-ink opacity-0 transition-opacity group-hover:opacity-100">
-                Learn more →
-              </span>
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs text-ghost">{s.num}</span>
+                <span class="text-base text-ghost">→</span>
+              </div>
+              <div class="text-lg font-semibold">{s.title}</div>
+              <p class="text-sm leading-relaxed text-slate">{s.blurb}</p>
+              <div
+                class="max-h-0 overflow-hidden opacity-0 transition-[max-height,opacity] duration-[450ms] group-hover:max-h-[340px] group-hover:opacity-100"
+                style="transition-timing-function:cubic-bezier(0.4,0,0.2,1)"
+              >
+                <div class="mt-1.5 flex flex-col gap-1.5 border-t border-line pt-4">
+                  <div class="flex flex-1 flex-col gap-[9px]">
+                    {s.points.map((pt) => (
+                      <div class="flex items-start gap-[9px] text-[13px] leading-snug text-ink-soft">
+                        <span class="mt-1.5 size-[5px] flex-none rounded-full bg-ink" aria-hidden="true" />
+                        {pt}
+                      </div>
+                    ))}
+                  </div>
+                  <div class="pointer-events-none mx-auto mt-1 h-[100px] w-[104px] flex-none">
+                    <MiniScene kind={s.kind} />
+                  </div>
+                </div>
+              </div>
             </a>
           ))
         }
@@ -94,61 +192,43 @@ const reasons = [
     </div>
   </section>
 
-  <!-- Why us -->
-  <section class="border-t border-line">
-    <div class="container-site py-20 md:py-28">
-      <SectionHeading eyebrow="Why Moldstep" title="Built like partners, not vendors" />
-      <div class="mt-12 grid gap-10 md:grid-cols-3">
-        {
-          reasons.map((reason) => (
-            <div class="space-y-3">
-              <div class="h-px w-10 bg-ink" />
-              <h3 class="text-lg font-semibold">{reason.title}</h3>
-              <p class="text-sm leading-relaxed text-muted">{reason.text}</p>
-            </div>
-          ))
-        }
-      </div>
+  <!-- PROCESS -->
+  <section id="process" class="border-b border-[#e0e0e3] bg-surface-2 text-ink">
+    <div class="container-site py-22">
+      <div class="eyebrow text-faint">How we work</div>
+      <h2 class="mt-3.5 text-[40px] font-semibold tracking-[-0.025em]">A simple process, on purpose</h2>
+      <ProcessTimeline />
     </div>
   </section>
 
-  <!-- Process -->
-  <section class="border-t border-line bg-surface">
-    <div class="container-site py-20 md:py-28">
-      <SectionHeading
-        eyebrow="How we work"
-        title="A simple process, on purpose"
-        text="Four steps from first call to running software. You always know where the project stands."
-      />
-      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {
-          process.map((phase) => (
-            <div class="rounded-xl border border-line bg-white p-6">
-              <span class="font-mono text-sm text-muted">{phase.step}</span>
-              <h3 class="mt-3 font-semibold">{phase.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted">{phase.text}</p>
-            </div>
-          ))
-        }
+  <!-- WORK -->
+  <section id="work" class="border-b border-line bg-surface text-ink">
+    <div class="container-site py-22">
+      <div class="flex flex-wrap items-end justify-between gap-8">
+        <div>
+          <div class="eyebrow text-faint">Selected work</div>
+          <h2 class="mt-3.5 text-[40px] font-semibold tracking-[-0.025em]">Results, not slide decks</h2>
+        </div>
+        <a href="/work" class="btn-ghost-light">All case studies</a>
       </div>
-    </div>
-  </section>
 
-  <!-- Work preview -->
-  <section class="border-t border-line">
-    <div class="container-site py-20 md:py-28">
-      <div class="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading eyebrow="Selected work" title="Results, not slide decks" />
-        <a href="/work" class="btn-secondary">All case studies</a>
-      </div>
-      <div class="mt-12 grid gap-6 lg:grid-cols-3">
+      <div class="mt-12 grid gap-5 [perspective:900px] md:grid-cols-3">
         {
-          caseStudies.map((cs) => (
-            <article class="flex flex-col rounded-xl border border-line p-6 transition-colors hover:border-muted">
-              <span class="eyebrow">{cs.category}</span>
-              <h3 class="mt-3 text-lg font-semibold text-balance">{cs.title}</h3>
-              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{cs.summary}</p>
-              <p class="mt-4 border-t border-line pt-4 font-mono text-xs text-ink-soft">{cs.results[0]}</p>
+          caseStudies.map((c) => (
+            <article
+              class="flex cursor-pointer flex-col overflow-hidden rounded-[14px] border border-line-2 bg-white transition-[border-color,box-shadow,transform] duration-200 hover:border-[#b9b9c0] hover:shadow-[0_20px_40px_rgba(24,24,27,0.1)]"
+              style="transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s ease-out"
+              data-tilt="8"
+              data-lift="-4"
+            >
+              <div class="grid h-[150px] place-items-center border-b border-line bg-surface-2">
+                <CaseArt kind={c.art} />
+              </div>
+              <div class="flex flex-1 flex-col gap-2 p-6">
+                <span class="font-mono text-[11px] tracking-[0.14em] text-ghost uppercase">{c.category}</span>
+                <div class="text-[17px] leading-[1.3] font-semibold">{c.title}</div>
+                <div class="mt-auto border-t border-line pt-3.5 font-mono text-xs text-ink-soft">{c.result}</div>
+              </div>
             </article>
           ))
         }
@@ -156,5 +236,5 @@ const reasons = [
     </div>
   </section>
 
-  <CtaSection />
+  <CtaSection id="contact" float email />
 </BaseLayout>

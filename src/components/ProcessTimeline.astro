@@ -1,0 +1,106 @@
+---
+/**
+ * "How we work" timeline: an animated progress line over four step nodes.
+ * The active step auto-advances every 2.6s; clicking a step selects it and
+ * restarts the timer. Cards tilt in 3D on hover.
+ */
+const steps = [
+  {
+    step: "01",
+    title: "Discover",
+    text: "A short, focused conversation about your goals, constraints, and current systems. No sales theater.",
+  },
+  {
+    step: "02",
+    title: "Design",
+    text: "We propose the simplest architecture that solves the problem — with a clear scope, timeline, and budget.",
+  },
+  {
+    step: "03",
+    title: "Build",
+    text: "Short iterations, working software every week, and full visibility into progress from day one.",
+  },
+  {
+    step: "04",
+    title: "Support",
+    text: "We stay after launch: monitoring, improvements, and a team that already knows your codebase.",
+  },
+];
+---
+
+<div class="relative mt-13" data-process>
+  <div class="absolute top-[22px] right-[12.5%] left-[12.5%] hidden h-0.5 rounded-full bg-[#d4d4d8] md:block"></div>
+  <div
+    class="absolute top-[22px] left-[12.5%] hidden h-0.5 rounded-full bg-ink md:block"
+    style="width:0%;transition:width 0.7s cubic-bezier(0.4,0,0.2,1)"
+    data-progress
+  >
+  </div>
+  <div class="grid gap-5 [perspective:900px] md:grid-cols-4">
+    {
+      steps.map((p) => (
+        <div class="cursor-pointer" data-step>
+          <div
+            class="relative mx-auto grid size-11 place-items-center rounded-full border-2 font-mono text-[13px]"
+            style="transition:background 0.4s,color 0.4s,border-color 0.4s"
+            data-step-node
+          >
+            {p.step}
+          </div>
+          <div
+            class="mt-5 rounded-[14px] border bg-white p-[26px]"
+            style="transition:border-color 0.4s,box-shadow 0.4s,transform 0.15s ease-out"
+            data-step-card
+            data-tilt="8"
+            data-lift="-4"
+          >
+            <div class="text-[17px] font-semibold">{p.title}</div>
+            <p class="mt-2 text-[13.5px] leading-relaxed text-slate">{p.text}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-process]").forEach((root) => {
+    const nodes = [...root.querySelectorAll<HTMLElement>("[data-step-node]")];
+    const cards = [...root.querySelectorAll<HTMLElement>("[data-step-card]")];
+    const bar = root.querySelector<HTMLElement>("[data-progress]");
+    let active = 0;
+    let timer: ReturnType<typeof setInterval>;
+
+    const apply = () => {
+      if (bar) bar.style.width = `${(active / 3) * 75}%`;
+      nodes.forEach((n, i) => {
+        n.style.background = i === active ? "#18181b" : i < active ? "#3f3f46" : "#ffffff";
+        n.style.color = i <= active ? "#ffffff" : "#8a8a93";
+        n.style.borderColor = i <= active ? "#18181b" : "#d4d4d8";
+      });
+      cards.forEach((c, i) => {
+        c.style.borderColor = i === active ? "#18181b" : "#e0e0e3";
+        c.style.boxShadow = i === active ? "0 18px 36px rgba(24,24,27,0.14)" : "0 1px 2px rgba(24,24,27,0.04)";
+      });
+    };
+
+    const start = () => {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        active = (active + 1) % 4;
+        apply();
+      }, 2600);
+    };
+
+    root.querySelectorAll<HTMLElement>("[data-step]").forEach((wrap, i) => {
+      wrap.addEventListener("click", () => {
+        active = i;
+        apply();
+        start();
+      });
+    });
+
+    apply();
+    start();
+  });
+</script>

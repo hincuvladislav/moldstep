@@ -1,12 +1,21 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import Footer from "@components/Footer.astro";
 ---
 
 <BaseLayout title="Page not found">
-  <section class="container-site flex flex-col items-start gap-6 py-32">
-    <p class="font-mono text-sm text-muted">404</p>
-    <h1 class="text-4xl font-semibold tracking-tight">Page not found</h1>
-    <p class="max-w-md text-muted">The page you're looking for doesn't exist or has been moved.</p>
-    <a href="/" class="btn-primary">Back to homepage</a>
+  <section class="relative overflow-hidden border-b border-[#1b1e25]">
+    <div class="hero-grid absolute inset-0"></div>
+    <div class="container-site relative flex flex-col items-start gap-6 py-32">
+      <p class="font-mono text-sm text-dusk-3">404</p>
+      <h1 class="text-[clamp(38px,4.4vw,56px)] leading-[1.05] font-semibold tracking-[-0.03em]">Page not found</h1>
+      <p class="max-w-md text-[17px] text-dusk">The page you're looking for doesn't exist or has been moved.</p>
+      <a href="/" class="btn-light">Back to homepage</a>
+    </div>
+  </section>
+  <section class="bg-night">
+    <div class="container-site">
+      <Footer />
+    </div>
   </section>
 </BaseLayout>

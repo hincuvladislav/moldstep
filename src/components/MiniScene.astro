@@ -1,0 +1,104 @@
+---
+/**
+ * Animated 3D CSS miniature for each service, revealed when a service card
+ * expands on hover. Direct translation of the design's scene() variants.
+ */
+interface Props {
+  kind: "ai" | "auto" | "web" | "plan" | "ops" | "data";
+}
+
+const { kind } = Astro.props;
+---
+
+<div class="relative h-full w-full [perspective:500px]">
+  {
+    kind === "ai" && (
+      <>
+        <div style="position:absolute;top:50%;left:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:99px;background:radial-gradient(circle at 35% 30%,#3f3f46,#18181b);box-shadow:0 6px 14px rgba(24,24,27,0.35)" />
+        <div style="position:absolute;top:50%;left:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;border:1.5px solid #b9b9c0;animation:ms-orb1 5s linear infinite;transform-style:preserve-3d">
+          <div style="position:absolute;top:-4px;left:50%;margin-left:-4px;width:8px;height:8px;border-radius:99px;background:#18181b" />
+        </div>
+        <div style="position:absolute;top:50%;left:50%;width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;border:1.5px solid #d4d4d8;animation:ms-orb2 7.5s linear infinite;transform-style:preserve-3d">
+          <div style="position:absolute;top:-4px;left:50%;margin-left:-4px;width:8px;height:8px;border-radius:99px;background:#6b7180" />
+        </div>
+      </>
+    )
+  }
+  {
+    kind === "auto" && (
+      <div style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(52deg)">
+        <div style="position:absolute;top:16px;left:8px;width:54px;height:54px;border-radius:50%;border:3px dashed #6b7180;animation:ms-spin 7s linear infinite" />
+        <div style="position:absolute;top:31px;left:23px;width:24px;height:24px;border-radius:50%;background:#18181b" />
+        <div style="position:absolute;top:36px;right:6px;width:40px;height:40px;border-radius:50%;border:3px dashed #a1a1aa;animation:ms-spin-r 5s linear infinite" />
+        <div style="position:absolute;top:48px;right:18px;width:16px;height:16px;border-radius:50%;background:#3f3f46" />
+      </div>
+    )
+  }
+  {
+    kind === "web" && (
+      <div style="position:absolute;top:50%;left:50%;width:66px;height:66px;margin:-33px 0 0 -33px;transform-style:preserve-3d;animation:ms-flip 7s ease-in-out infinite">
+        <div style="position:absolute;inset:0;border-radius:10px;background:#ffffff;border:1px solid #c8c8cd;backface-visibility:hidden;overflow:hidden">
+          <div style="display:flex;gap:3px;padding:7px 8px;border-bottom:1px solid #e4e4e7">
+            <div style="width:5px;height:5px;border-radius:99px;background:#d4d4d8" />
+            <div style="width:5px;height:5px;border-radius:99px;background:#d4d4d8" />
+            <div style="width:5px;height:5px;border-radius:99px;background:#d4d4d8" />
+          </div>
+          <div style="margin:8px 8px 0;height:6px;border-radius:3px;background:#e4e4e7" />
+          <div style="margin:6px 8px 0;height:6px;width:34px;border-radius:3px;background:#d4d4d8" />
+          <div style="margin:8px 8px 0;height:12px;width:26px;border-radius:4px;background:#18181b" />
+        </div>
+        <div style="position:absolute;inset:0;border-radius:10px;background:#18181b;display:grid;place-items:center;font-family:ui-monospace,Menlo,monospace;font-size:15px;font-weight:700;color:#ffffff;transform:rotateY(180deg);backface-visibility:hidden">
+          &lt;/&gt;
+        </div>
+      </div>
+    )
+  }
+  {
+    kind === "plan" && (
+      <div style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(52deg) rotateZ(45deg)">
+        <div style="position:absolute;top:58px;left:10px;width:34px;height:34px;border-radius:8px;background:#d4d4d8;animation:ms-float2 4s ease-in-out infinite" />
+        <div style="position:absolute;top:34px;left:34px;width:34px;height:34px;border-radius:8px;background:#ffffff;border:1px solid #c8c8cd;transform:translateZ(16px);animation:ms-float2 4s ease-in-out infinite 0.5s" />
+        <div style="position:absolute;top:10px;left:58px;width:34px;height:34px;border-radius:8px;background:#18181b;transform:translateZ(32px);animation:ms-float2 4s ease-in-out infinite 1s;display:grid;place-items:center">
+          <div style="width:10px;height:10px;border-radius:99px;background:#ffffff" />
+        </div>
+      </div>
+    )
+  }
+  {
+    kind === "ops" && (
+      <div style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(14deg)">
+        <div style="position:absolute;top:22px;left:50%;width:54px;height:15px;margin-left:-27px;border-radius:4px;background:#ffffff;border:1px solid #c8c8cd">
+          <div style="position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:99px;background:#18181b" />
+        </div>
+        <div style="position:absolute;top:41px;left:50%;width:54px;height:15px;margin-left:-27px;border-radius:4px;background:#ffffff;border:1px solid #c8c8cd">
+          <div style="position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:99px;background:#18181b;animation:ms-pulse 1.4s ease-in-out infinite" />
+        </div>
+        <div style="position:absolute;top:60px;left:50%;width:54px;height:15px;margin-left:-27px;border-radius:4px;background:#ffffff;border:1px solid #c8c8cd">
+          <div style="position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:99px;background:#6b7180" />
+        </div>
+        <div style="position:absolute;top:50%;left:50%;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;border:1px dashed #c8c8cd;animation:ms-orb1 6s linear infinite;transform-style:preserve-3d">
+          <div style="position:absolute;top:-5px;left:50%;margin-left:-5px;width:10px;height:10px;border-radius:99px;background:#18181b" />
+        </div>
+      </div>
+    )
+  }
+  {
+    kind === "data" && (
+      <div style="position:absolute;inset:0;transform-style:preserve-3d;animation:ms-sway 6s ease-in-out infinite">
+        <div style="position:absolute;bottom:16px;left:10px;right:10px;height:2px;background:#c8c8cd" />
+        <div style="position:absolute;bottom:18px;left:16px;width:13px;height:34px;transform:translateZ(-12px)">
+          <div style="position:absolute;inset:0;border-radius:3px 3px 0 0;background:#6b7180;transform-origin:bottom;animation:ms-bar 3.2s ease-in-out infinite" />
+        </div>
+        <div style="position:absolute;bottom:18px;left:38px;width:13px;height:52px;transform:translateZ(0px)">
+          <div style="position:absolute;inset:0;border-radius:3px 3px 0 0;background:#3f3f46;transform-origin:bottom;animation:ms-bar 3.2s ease-in-out infinite 0.4s" />
+        </div>
+        <div style="position:absolute;bottom:18px;left:60px;width:13px;height:42px;transform:translateZ(12px)">
+          <div style="position:absolute;inset:0;border-radius:3px 3px 0 0;background:#8a8a93;transform-origin:bottom;animation:ms-bar 3.2s ease-in-out infinite 0.8s" />
+        </div>
+        <div style="position:absolute;bottom:18px;left:82px;width:13px;height:62px;transform:translateZ(24px)">
+          <div style="position:absolute;inset:0;border-radius:3px 3px 0 0;background:#18181b;transform-origin:bottom;animation:ms-bar 3.2s ease-in-out infinite 1.2s" />
+        </div>
+      </div>
+    )
+  }
+</div>

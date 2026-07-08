@@ -1,76 +1,111 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import CtaSection from "@components/CtaSection.astro";
-import SectionHeading from "@components/SectionHeading.astro";
+import ProcessTimeline from "@components/ProcessTimeline.astro";
 import { site } from "@lib/site";
 
-const values = [
+const reasons = [
   {
-    title: "Honesty over hype",
-    text: "If a simpler tool, an off-the-shelf product, or no AI at all is the right answer, that's the recommendation you'll get.",
+    title: "Senior engineers only",
+    text: "Every project is delivered by experienced engineers — no hand-offs to juniors after the contract is signed.",
   },
   {
-    title: "Ownership",
-    text: "We treat your product like our own — from architecture decisions to the last deployment detail.",
+    title: "AI where it pays off",
+    text: "We build AI systems for real workflows and measurable outcomes, not for the demo. If AI isn't the answer, we'll say so.",
   },
   {
-    title: "Clarity",
-    text: "Plain-language communication, transparent estimates, and no invoices that need decoding.",
-  },
-  {
-    title: "Craft",
-    text: "Code is read more than it's written. We build systems the next engineer will thank us for.",
+    title: "Boring, reliable delivery",
+    text: "Proven stacks, automated testing, CI/CD, and honest estimates. Surprises belong in the product, not the invoice.",
   },
 ];
 ---
 
 <BaseLayout
   title="About"
-  description="Moldstep LLC is a senior software team building custom AI applications and providing IT consulting for companies that want technology to pay off."
+  description="Moldstep LLC is a small senior team building custom AI applications and advising companies on technology strategy."
 >
-  <section class="border-b border-line bg-surface">
-    <div class="container-site py-20 md:py-28">
-      <p class="eyebrow mb-5">About</p>
-      <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-5xl">
-        A small senior team with an outsized delivery record
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg text-muted">
-        {site.legalName} exists because most companies don't need a 200-person agency — they need a handful of
-        experienced engineers who understand the business problem and ship.
-      </p>
-    </div>
-  </section>
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-[#1b1e25]" data-parallax>
+    <div class="hero-grid absolute inset-0"></div>
+    <div class="container-site relative flex flex-wrap items-center gap-10 py-16 md:py-18">
+      <div class="min-w-0 flex-1 md:min-w-[440px]">
+        <div class="eyebrow flex items-center gap-2.5 text-dusk-3">
+          <span class="h-px w-6 bg-[#3d414c]"></span>About Moldstep
+        </div>
+        <h1 class="mt-6 text-[clamp(38px,4.4vw,56px)] leading-[1.05] font-semibold tracking-[-0.03em]">
+          Built like partners, not vendors.
+        </h1>
+        <p class="mt-6 max-w-[520px] text-[17px] leading-[1.65] text-dusk">
+          {site.legalName} is a small senior team building custom AI applications and advising companies on technology
+          strategy. We keep the team small on purpose — so the people who scope your project are the ones who build it.
+        </p>
+      </div>
 
-  <section>
-    <div class="container-site grid gap-12 py-20 md:grid-cols-2 md:py-28">
-      <SectionHeading eyebrow="Our story" title="From enterprise systems to AI-first products" />
-      <div class="space-y-5 text-lg leading-relaxed text-ink-soft">
-        <p>
-          We started as engineers inside large delivery organizations, watching good projects drown in process and
-          hand-offs. Moldstep is the alternative: direct access to the people actually building your software.
-        </p>
-        <p>
-          Today we focus on where technology is moving — custom AI applications, intelligent automation, and the cloud
-          infrastructure underneath — while keeping the full-stack skills to deliver anything from a marketing site to
-          an enterprise integration.
-        </p>
-        <p>
-          We're deliberately not limited to one niche. What stays constant is the standard: senior work, honest advice,
-          and software that runs in production.
-        </p>
+      <!-- 3D scene: collaboration -->
+      <div class="pointer-events-none mx-auto h-[340px] w-[min(420px,90vw)] flex-none [perspective:1200px]">
+        <div
+          class="relative h-full w-full transition-transform duration-[250ms] ease-out [transform-style:preserve-3d]"
+          style="transform:rotateX(14deg) rotateY(-14deg)"
+          data-scene
+          data-base-x="14"
+          data-base-y="-14"
+          data-range-x="14"
+          data-range-y="18"
+        >
+          <div
+            class="absolute top-6 left-5 w-[250px] rounded-[14px] border border-edge-3 bg-night-card px-5 py-[18px] shadow-[0_26px_60px_rgba(0,0,0,0.55)]"
+            style="transform:translateZ(-30px);animation:ms-float2 6.5s ease-in-out infinite"
+          >
+            <div class="flex items-center gap-2.5">
+              <span class="size-7 flex-none rounded-full bg-edge-2"></span>
+              <div class="flex flex-col gap-1.5">
+                <span class="h-2 w-[120px] rounded-sm bg-[#3d414c]"></span>
+                <span class="h-2 w-20 rounded-sm bg-edge-2"></span>
+              </div>
+            </div>
+            <div class="mt-3.5 font-mono text-[11px] text-dusk-3">"Can we automate the intake queue?"</div>
+          </div>
+          <div
+            class="absolute top-[130px] right-3 w-[250px] rounded-[14px] border border-edge-4 bg-night-card/95 px-5 py-[18px] shadow-[0_26px_55px_rgba(0,0,0,0.6)]"
+            style="transform:translateZ(60px);animation:ms-float 6s ease-in-out infinite 0.5s"
+          >
+            <div class="flex items-center gap-2.5">
+              <span class="grid size-7 flex-none place-items-center rounded-full bg-white font-mono text-[11px] font-bold text-night">M</span>
+              <div class="flex flex-col gap-1.5">
+                <span class="h-2 w-[100px] rounded-sm bg-[#3d414c]"></span>
+              </div>
+            </div>
+            <div class="mt-3.5 font-mono text-[11px] text-steel">"Yes — prototype by Friday. Here's the plan."</div>
+          </div>
+          <div
+            class="absolute bottom-4 left-12 flex items-center gap-2.5 rounded-full border border-edge-3 bg-night-card/90 px-[18px] py-2.5"
+            style="transform:translateZ(100px);animation:ms-float 5.4s ease-in-out infinite 1s"
+          >
+            <span class="size-2 rounded-full bg-white" style="animation:ms-pulse 1.6s ease-in-out infinite"></span>
+            <span class="font-mono text-[11px] text-dusk-2">shipping weekly since kickoff</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="border-t border-line bg-surface">
-    <div class="container-site py-20 md:py-28">
-      <SectionHeading eyebrow="Values" title="What working with us feels like" />
-      <div class="mt-12 grid gap-6 md:grid-cols-2">
+  <!-- WHY US -->
+  <section class="border-b border-line bg-surface text-ink">
+    <div class="container-site py-20">
+      <div class="eyebrow text-faint">Why Moldstep</div>
+      <h2 class="mt-3.5 text-[38px] font-semibold tracking-[-0.025em]">What working with us looks like</h2>
+      <div class="mt-11 grid gap-5 [perspective:1000px] md:grid-cols-3">
         {
-          values.map((value) => (
-            <div class="rounded-xl border border-line bg-white p-6">
-              <h3 class="font-semibold">{value.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted">{value.text}</p>
+          reasons.map((r) => (
+            <div
+              class="rounded-[14px] border border-line-2 bg-white p-7 hover:border-[#b9b9c0] hover:shadow-[0_20px_40px_rgba(24,24,27,0.1)]"
+              style="transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s ease-out"
+              data-tilt="8"
+              data-lift="-4"
+            >
+              <div class="h-[3px] w-10 rounded-full bg-ink" />
+              <div class="mt-[18px] text-lg font-semibold">{r.title}</div>
+              <p class="mt-2.5 text-sm leading-[1.65] text-slate">{r.text}</p>
             </div>
           ))
         }
@@ -78,5 +113,14 @@ const values = [
     </div>
   </section>
 
-  <CtaSection />
+  <!-- PROCESS -->
+  <section class="bg-surface-2 text-ink">
+    <div class="container-site py-20">
+      <div class="eyebrow text-faint">How we work</div>
+      <h2 class="mt-3.5 text-[38px] font-semibold tracking-[-0.025em]">A simple process, on purpose</h2>
+      <ProcessTimeline />
+    </div>
+  </section>
+
+  <CtaSection title="Sound like a fit?" />
 </BaseLayout>

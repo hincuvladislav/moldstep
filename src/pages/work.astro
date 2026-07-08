@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import CaseArt from "@components/CaseArt.astro";
 import CtaSection from "@components/CtaSection.astro";
 import { caseStudies } from "@lib/site";
 ---
@@ -8,39 +9,99 @@ import { caseStudies } from "@lib/site";
   title="Work"
   description="Case studies from Moldstep LLC — custom AI applications, web platforms, and IT consulting engagements with measurable results."
 >
-  <section class="border-b border-line bg-surface">
-    <div class="container-site py-20 md:py-28">
-      <p class="eyebrow mb-5">Work</p>
-      <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-5xl">
-        Case studies with numbers attached
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg text-muted">
-        A selection of recent engagements. Every project below shipped to production and is measured by the outcomes it
-        produced — not the technology behind it.
-      </p>
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-[#1b1e25]" data-parallax>
+    <div class="hero-grid absolute inset-0"></div>
+    <div class="container-site relative flex flex-wrap items-center gap-10 py-16 md:py-18">
+      <div class="min-w-0 flex-1 md:min-w-[440px]">
+        <div class="eyebrow flex items-center gap-2.5 text-dusk-3">
+          <span class="h-px w-6 bg-[#3d414c]"></span>Selected work
+        </div>
+        <h1 class="mt-6 text-[clamp(38px,4.4vw,56px)] leading-[1.05] font-semibold tracking-[-0.03em]">
+          Results, not slide decks.
+        </h1>
+        <p class="mt-6 max-w-[520px] text-[17px] leading-[1.65] text-dusk">
+          A few recent projects — what we built, and what changed for the business after launch.
+        </p>
+      </div>
+
+      <!-- 3D scene: metrics dashboard -->
+      <div class="pointer-events-none mx-auto h-[340px] w-[min(420px,90vw)] flex-none [perspective:1200px]">
+        <div
+          class="relative h-full w-full transition-transform duration-[250ms] ease-out [transform-style:preserve-3d]"
+          style="transform:rotateX(14deg) rotateY(-14deg)"
+          data-scene
+          data-base-x="14"
+          data-base-y="-14"
+          data-range-x="14"
+          data-range-y="18"
+        >
+          <div
+            class="absolute top-5 left-6 h-[200px] w-[300px] rounded-2xl border border-edge-3 bg-night-card shadow-[0_30px_70px_rgba(0,0,0,0.55)]"
+            style="transform:translateZ(-20px);animation:ms-float2 6.5s ease-in-out infinite"
+          >
+            <div class="flex gap-1.5 border-b border-edge-2 px-4 py-3.5">
+              <span class="size-[9px] rounded-full bg-edge-4"></span>
+              <span class="size-[9px] rounded-full bg-edge-4"></span>
+              <span class="size-[9px] rounded-full bg-edge-4"></span>
+            </div>
+            <div class="flex flex-col gap-3.5 p-5">
+              <div class="font-mono text-[11px] text-dusk-3">manual handling</div>
+              <div class="h-2.5 overflow-hidden rounded-full bg-edge">
+                <span class="block h-full w-[15%] rounded-full bg-white" style="animation:ms-grow 1.6s ease-out"></span>
+              </div>
+              <div class="font-mono text-[11px] text-dusk-3">processing time</div>
+              <div class="h-2.5 overflow-hidden rounded-full bg-edge">
+                <span class="block h-full w-[28%] rounded-full bg-dusk-3" style="animation:ms-grow 1.9s ease-out"></span>
+              </div>
+              <div class="font-mono text-[11px] text-dusk-3">team adoption</div>
+              <div class="h-2.5 overflow-hidden rounded-full bg-edge">
+                <span class="block h-full w-[92%] rounded-full bg-steel" style="animation:ms-grow 2.2s ease-out"></span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="absolute top-0 right-2 rounded-xl border border-edge-4 bg-night-card/95 px-[18px] py-3.5 shadow-[0_22px_45px_rgba(0,0,0,0.55)]"
+            style="transform:translateZ(70px);animation:ms-float 6s ease-in-out infinite 0.5s"
+          >
+            <div class="text-2xl font-semibold tracking-[-0.02em]">−85%</div>
+            <div class="font-mono text-[11px] text-dusk-3">manual work</div>
+          </div>
+          <div
+            class="absolute right-8 bottom-7 rounded-xl border border-edge-4 bg-night-card/95 px-[18px] py-3.5 shadow-[0_22px_45px_rgba(0,0,0,0.55)]"
+            style="transform:translateZ(100px);animation:ms-float 5.2s ease-in-out infinite 1s"
+          >
+            <div class="text-2xl font-semibold tracking-[-0.02em]">hrs → min</div>
+            <div class="font-mono text-[11px] text-dusk-3">processing time</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section>
-    <div class="container-site divide-y divide-line">
+  <!-- CASE STUDIES -->
+  <section class="bg-surface text-ink">
+    <div class="container-site flex flex-col gap-6 py-20 [perspective:1400px]">
       {
-        caseStudies.map((cs) => (
-          <article class="grid gap-8 py-14 md:grid-cols-[2fr_1fr] md:gap-16">
-            <div>
-              <span class="eyebrow">{cs.category}</span>
-              <h2 class="mt-3 text-2xl font-semibold tracking-tight text-balance">{cs.title}</h2>
-              <p class="mt-4 text-lg leading-relaxed text-ink-soft">{cs.summary}</p>
+        caseStudies.map((c) => (
+          <article
+            class="flex flex-col overflow-hidden rounded-[18px] border border-line-2 bg-white hover:border-[#b9b9c0] hover:shadow-[0_24px_50px_rgba(24,24,27,0.1)] md:flex-row"
+            style="transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s ease-out"
+            data-tilt="4"
+            data-lift="-3"
+          >
+            <div class="grid flex-none place-items-center border-b border-line bg-surface-2 md:w-[320px] md:border-r md:border-b-0">
+              <CaseArt kind={c.art} />
             </div>
-            <div class="rounded-xl border border-line bg-surface p-6">
-              <p class="eyebrow mb-4">Results</p>
-              <ul class="space-y-3">
-                {cs.results.map((result) => (
-                  <li class="flex items-start gap-3 text-sm text-ink-soft">
-                    <span class="mt-2 h-px w-4 shrink-0 bg-ink" aria-hidden="true" />
-                    {result}
-                  </li>
+            <div class="flex flex-1 flex-col gap-3 p-7 md:px-10 md:py-9">
+              <span class="font-mono text-[11px] tracking-[0.14em] text-ghost uppercase">{c.category}</span>
+              <div class="text-2xl leading-[1.25] font-semibold tracking-[-0.015em]">{c.title}</div>
+              <p class="max-w-[640px] text-[15px] leading-[1.65] text-slate">{c.summary}</p>
+              <div class="mt-2.5 flex flex-wrap gap-3.5 border-t border-line pt-[18px]">
+                {c.results.map((r) => (
+                  <span class="rounded-full border border-line-2 px-3.5 py-[7px] font-mono text-xs text-ink-soft">{r}</span>
                 ))}
-              </ul>
+              </div>
             </div>
           </article>
         ))
@@ -48,5 +109,5 @@ import { caseStudies } from "@lib/site";
     </div>
   </section>
 
-  <CtaSection title="Want results like these?" text="Tell us about your project and we'll show you what's possible." />
+  <CtaSection title="Want results like these?" />
 </BaseLayout>

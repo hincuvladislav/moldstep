@@ -4,42 +4,15 @@ import { nav, site } from "@lib/site";
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-line bg-surface">
-  <div class="container-site flex flex-col gap-8 py-12 md:flex-row md:items-start md:justify-between">
-    <div class="max-w-sm space-y-3">
-      <a href="/" class="flex items-center gap-2 text-lg font-semibold tracking-tight">
-        <span class="grid size-7 place-items-center rounded-md bg-ink font-mono text-xs font-bold text-white">M</span>
-        {site.name}
-      </a>
-      <p class="text-sm text-muted">{site.tagline}. We design, build, and support software that moves your business forward.</p>
-    </div>
-
-    <div class="flex gap-16">
-      <div>
-        <p class="eyebrow mb-3">Company</p>
-        <ul class="space-y-2">
-          {
-            nav.map((item) => (
-              <li>
-                <a href={item.href} class="text-sm text-muted transition-colors hover:text-ink">
-                  {item.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-      <div>
-        <p class="eyebrow mb-3">Get in touch</p>
-        <a href={`mailto:${site.email}`} class="text-sm text-muted transition-colors hover:text-ink">{site.email}</a>
-      </div>
-    </div>
+<div class="flex items-center justify-between border-t border-edge py-6 text-[13px] text-dusk-4">
+  <span>© {year} {site.legalName}</span>
+  <div class="flex gap-6">
+    {
+      nav.map((item) => (
+        <a href={item.href} class="transition-colors hover:text-white">
+          {item.label}
+        </a>
+      ))
+    }
   </div>
-
-  <div class="border-t border-line">
-    <div class="container-site flex h-14 items-center justify-between text-xs text-muted">
-      <span>© {year} {site.legalName}. All rights reserved.</span>
-      <span class="font-mono">Built for speed. Deployed on Vercel.</span>
-    </div>
-  </div>
-</footer>
+</div>

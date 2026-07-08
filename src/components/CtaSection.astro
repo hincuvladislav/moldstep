@@ -1,21 +1,95 @@
 ---
+import Footer from "@components/Footer.astro";
+import { site } from "@lib/site";
+
 interface Props {
   title?: string;
   text?: string;
+  /** Render the floating 3D message panels with mouse parallax (home page). */
+  float?: boolean;
+  /** Show the secondary email button next to the primary CTA. */
+  email?: boolean;
+  id?: string;
 }
 
 const {
   title = "Have a project in mind?",
-  text = "Tell us what you're building — or what's slowing you down. We'll reply within one business day with honest, practical next steps.",
+  text = "Tell us what you're trying to build. We'll reply within one business day.",
+  float = false,
+  email = false,
+  id,
 } = Astro.props;
 ---
 
-<section class="border-t border-line bg-ink text-white">
-  <div class="container-site flex flex-col items-start gap-6 py-20 md:flex-row md:items-center md:justify-between">
-    <div class="max-w-xl space-y-3">
-      <h2 class="text-3xl font-semibold tracking-tight">{title}</h2>
-      <p class="text-zinc-400">{text}</p>
+<section {id} class="relative overflow-hidden border-t border-[#1b1e25] bg-night" data-parallax={float ? "" : undefined}>
+  {
+    float && (
+      <div class="pointer-events-none absolute inset-0 hidden [perspective:1100px] min-[1150px]:block">
+        <div
+          class="absolute inset-0 transition-transform duration-[250ms] ease-out [transform-style:preserve-3d]"
+          data-scene
+          data-base-x="0"
+          data-base-y="0"
+          data-range-x="10"
+          data-range-y="14"
+        >
+          <div
+            class="absolute top-24 left-[7%] w-[210px] rounded-[14px] border border-edge-3 bg-night-card/90 px-[18px] py-4 shadow-[0_24px_50px_rgba(0,0,0,0.5)]"
+            style="transform:translateZ(40px) rotate(-4deg);animation:ms-float2 6.5s ease-in-out infinite"
+          >
+            <div class="font-mono text-[11px] text-dusk-3">you → {site.email}</div>
+            <div class="mt-2.5 flex flex-col gap-[7px]">
+              <span class="h-2 w-[140px] rounded-sm bg-[#3d414c]" />
+              <span class="h-2 w-[100px] rounded-sm bg-edge-2" />
+            </div>
+          </div>
+          <div
+            class="absolute right-[6%] bottom-[150px] w-[220px] rounded-[14px] border border-edge-4 bg-night-card/95 px-[18px] py-4 shadow-[0_24px_50px_rgba(0,0,0,0.55)]"
+            style="transform:translateZ(80px) rotate(3deg);animation:ms-float 6s ease-in-out infinite 0.6s"
+          >
+            <div class="flex items-center gap-2 font-mono text-[11px] text-steel">
+              <span class="grid size-5 place-items-center rounded-full bg-white text-[9px] font-bold text-night">M</span>
+              reply · within 1 business day
+            </div>
+            <div class="mt-2.5 flex flex-col gap-[7px]">
+              <span class="h-2 w-[150px] rounded-sm bg-[#3d414c]" />
+              <span class="h-2 w-[90px] rounded-sm bg-edge-2" />
+            </div>
+          </div>
+          <div
+            class="absolute top-[70px] right-[14%] rounded-full border border-edge-3 bg-night-card/90 px-4 py-[9px] font-mono text-[11px] text-dusk-2"
+            style="transform:translateZ(110px) rotate(2deg);animation:ms-float 5.4s ease-in-out infinite 1s"
+          >
+            no sales theater, promise
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  <div class:list={["container-site relative", float ? "pt-24" : "pt-20"]}>
+    <div class:list={["text-center", float ? "pb-22" : "pb-18"]}>
+      <h2 class:list={["font-semibold tracking-[-0.025em]", float ? "text-[46px]" : "text-[40px]"]}>{title}</h2>
+      <p class="mx-auto mt-4 max-w-[480px] text-base leading-relaxed text-dusk-2 md:text-[17px]">{text}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3.5">
+        {
+          email ? (
+            <>
+              <a href={`mailto:${site.email}`} class="btn-light">
+                Start a project
+              </a>
+              <a href={`mailto:${site.email}`} class="btn-ghost-dark">
+                {site.email}
+              </a>
+            </>
+          ) : (
+            <a href="/contact" class="btn-light">
+              Start a project
+            </a>
+          )
+        }
+      </div>
     </div>
-    <a href="/contact" class="btn-secondary shrink-0">Start the conversation</a>
+    <Footer />
   </div>
 </section>

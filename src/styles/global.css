@@ -1,16 +1,81 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  --font-sans: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, Menlo, Consolas, monospace;
 
-  /* Grey/white tech palette — zinc-based with a near-black ink accent */
+  /* Light sections */
   --color-ink: #18181b;
   --color-ink-soft: #3f3f46;
+  --color-slate: #5b5b64;
   --color-muted: #71717a;
+  --color-faint: #8a8a93;
+  --color-ghost: #a1a1aa;
   --color-line: #e4e4e7;
-  --color-surface: #fafafa;
-  --color-surface-dark: #f4f4f5;
+  --color-line-2: #e0e0e3;
+  --color-surface: #f4f4f5;
+  --color-surface-2: #ececee;
+
+  /* Dark sections */
+  --color-night: #0e0f13;
+  --color-night-card: #16181f;
+  --color-night-input: #101218;
+  --color-edge: #23262e;
+  --color-edge-2: #272a33;
+  --color-edge-3: #2c2f39;
+  --color-edge-4: #33373f;
+  --color-dusk: #a2a7b3;
+  --color-dusk-2: #9ba0ad;
+  --color-dusk-3: #7c828f;
+  --color-dusk-4: #6b7180;
+  --color-steel: #c6cad3;
+}
+
+/* Motion vocabulary from the design */
+@keyframes ms-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes ms-float2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes ms-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+@keyframes ms-dash {
+  to { stroke-dashoffset: -40; }
+}
+@keyframes ms-spin {
+  to { transform: rotateZ(360deg); }
+}
+@keyframes ms-spin-r {
+  to { transform: rotateZ(-360deg); }
+}
+@keyframes ms-orb1 {
+  from { transform: rotateX(70deg) rotateZ(0deg); }
+  to { transform: rotateX(70deg) rotateZ(360deg); }
+}
+@keyframes ms-orb2 {
+  from { transform: rotateX(70deg) rotateY(55deg) rotateZ(0deg); }
+  to { transform: rotateX(70deg) rotateY(55deg) rotateZ(360deg); }
+}
+@keyframes ms-flip {
+  0%, 10% { transform: rotateY(0deg); }
+  45%, 60% { transform: rotateY(180deg); }
+  95%, 100% { transform: rotateY(360deg); }
+}
+@keyframes ms-sway {
+  0%, 100% { transform: rotateY(-18deg) rotateX(8deg); }
+  50% { transform: rotateY(18deg) rotateX(8deg); }
+}
+@keyframes ms-bar {
+  0%, 100% { transform: scaleY(0.45); }
+  50% { transform: scaleY(1); }
+}
+@keyframes ms-grow {
+  from { width: 0; }
 }
 
 @layer base {
@@ -19,28 +84,53 @@
   }
 
   body {
-    @apply bg-white font-sans text-ink antialiased;
+    @apply bg-night font-sans text-white antialiased;
   }
 
   ::selection {
-    @apply bg-ink text-white;
+    @apply bg-white text-night;
   }
 }
 
 @layer components {
   .container-site {
-    @apply mx-auto w-full max-w-6xl px-6;
+    @apply mx-auto w-full max-w-[1296px] px-6 md:px-12;
   }
 
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-ink-soft;
+  /* Solid white button on dark */
+  .btn-light {
+    @apply inline-flex items-center justify-center rounded-[9px] bg-white px-[26px] py-3.5 text-[15px] font-medium text-night transition-colors hover:bg-[#d7d9de];
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-white px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-muted hover:bg-surface;
+  /* Outlined button on dark */
+  .btn-ghost-dark {
+    @apply inline-flex items-center justify-center rounded-[9px] border border-edge-4 px-[26px] py-3.5 text-[15px] text-white transition-colors hover:border-[#565c68] hover:bg-night-card;
+  }
+
+  /* Outlined button on light */
+  .btn-ghost-light {
+    @apply inline-flex items-center justify-center rounded-[9px] border border-[#c9c9cf] px-5 py-[11px] text-sm font-medium text-ink transition-colors hover:border-faint hover:bg-white;
   }
 
   .eyebrow {
-    @apply text-xs font-semibold tracking-[0.2em] text-muted uppercase;
+    @apply font-mono text-xs tracking-[0.18em] uppercase;
+  }
+
+  /* Hero grid backdrop, masked to a top-right ellipse */
+  .hero-grid {
+    background-image:
+      linear-gradient(#1c1f27 1px, transparent 1px),
+      linear-gradient(90deg, #1c1f27 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse at 70% 10%, black 25%, transparent 72%);
+    mask-image: radial-gradient(ellipse at 70% 10%, black 25%, transparent 72%);
+  }
+
+  .input-dark {
+    @apply rounded-[9px] border border-edge-2 bg-night-input px-3.5 py-[13px] text-sm text-white outline-none transition-colors focus:border-[#565c68];
+  }
+
+  .input-dark::placeholder {
+    color: #565c68;
   }
 }
