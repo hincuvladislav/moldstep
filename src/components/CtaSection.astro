@@ -1,0 +1,21 @@
+---
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const {
+  title = "Have a project in mind?",
+  text = "Tell us what you're building — or what's slowing you down. We'll reply within one business day with honest, practical next steps.",
+} = Astro.props;
+---
+
+<section class="border-t border-line bg-ink text-white">
+  <div class="container-site flex flex-col items-start gap-6 py-20 md:flex-row md:items-center md:justify-between">
+    <div class="max-w-xl space-y-3">
+      <h2 class="text-3xl font-semibold tracking-tight">{title}</h2>
+      <p class="text-zinc-400">{text}</p>
+    </div>
+    <a href="/contact" class="btn-secondary shrink-0">Start the conversation</a>
+  </div>
+</section>

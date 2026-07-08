@@ -1,0 +1,160 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import CtaSection from "@components/CtaSection.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import { caseStudies, services, site } from "@lib/site";
+
+const process = [
+  {
+    step: "01",
+    title: "Discover",
+    text: "A short, focused conversation about your goals, constraints, and current systems. No sales theater.",
+  },
+  {
+    step: "02",
+    title: "Design",
+    text: "We propose the simplest architecture that solves the problem — with a clear scope, timeline, and budget.",
+  },
+  {
+    step: "03",
+    title: "Build",
+    text: "Short iterations, working software every week, and full visibility into progress from day one.",
+  },
+  {
+    step: "04",
+    title: "Support",
+    text: "We stay after launch: monitoring, improvements, and a team that already knows your codebase.",
+  },
+];
+
+const reasons = [
+  {
+    title: "Senior engineers only",
+    text: "Every project is delivered by experienced engineers — no hand-offs to juniors after the contract is signed.",
+  },
+  {
+    title: "AI where it pays off",
+    text: "We build AI systems for real workflows and measurable outcomes, not for the demo. If AI isn't the answer, we'll say so.",
+  },
+  {
+    title: "Boring, reliable delivery",
+    text: "Proven stacks, automated testing, CI/CD, and honest estimates. Surprises belong in the product, not the invoice.",
+  },
+];
+---
+
+<BaseLayout title={site.name}>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div
+      class="pointer-events-none absolute inset-0 [background-image:linear-gradient(var(--color-line)_1px,transparent_1px),linear-gradient(90deg,var(--color-line)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
+    >
+    </div>
+    <div class="container-site relative py-24 md:py-36">
+      <p class="eyebrow mb-5">Custom AI · Software · Consulting</p>
+      <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
+        Software and AI that actually ship — and actually pay off.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-muted">
+        {site.legalName} builds custom AI-powered applications and provides pragmatic IT consulting. From first idea to
+        production and beyond — one senior team, end to end.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/contact" class="btn-primary">Start a project</a>
+        <a href="/services" class="btn-secondary">Explore services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services preview -->
+  <section class="border-t border-line bg-surface">
+    <div class="container-site py-20 md:py-28">
+      <SectionHeading
+        eyebrow="What we do"
+        title="One partner for AI, software, and strategy"
+        text="Custom applications with AI at the core, plus the consulting to make sure you're building the right thing."
+      />
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map((service, i) => (
+            <a
+              href="/services"
+              class="group flex flex-col rounded-xl border border-line bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-muted hover:shadow-sm"
+            >
+              <span class="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+              <h3 class="mt-3 text-lg font-semibold">{service.title}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{service.description}</p>
+              <span class="mt-4 text-sm font-medium text-ink opacity-0 transition-opacity group-hover:opacity-100">
+                Learn more →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Why us -->
+  <section class="border-t border-line">
+    <div class="container-site py-20 md:py-28">
+      <SectionHeading eyebrow="Why Moldstep" title="Built like partners, not vendors" />
+      <div class="mt-12 grid gap-10 md:grid-cols-3">
+        {
+          reasons.map((reason) => (
+            <div class="space-y-3">
+              <div class="h-px w-10 bg-ink" />
+              <h3 class="text-lg font-semibold">{reason.title}</h3>
+              <p class="text-sm leading-relaxed text-muted">{reason.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="border-t border-line bg-surface">
+    <div class="container-site py-20 md:py-28">
+      <SectionHeading
+        eyebrow="How we work"
+        title="A simple process, on purpose"
+        text="Four steps from first call to running software. You always know where the project stands."
+      />
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {
+          process.map((phase) => (
+            <div class="rounded-xl border border-line bg-white p-6">
+              <span class="font-mono text-sm text-muted">{phase.step}</span>
+              <h3 class="mt-3 font-semibold">{phase.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{phase.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Work preview -->
+  <section class="border-t border-line">
+    <div class="container-site py-20 md:py-28">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading eyebrow="Selected work" title="Results, not slide decks" />
+        <a href="/work" class="btn-secondary">All case studies</a>
+      </div>
+      <div class="mt-12 grid gap-6 lg:grid-cols-3">
+        {
+          caseStudies.map((cs) => (
+            <article class="flex flex-col rounded-xl border border-line p-6 transition-colors hover:border-muted">
+              <span class="eyebrow">{cs.category}</span>
+              <h3 class="mt-3 text-lg font-semibold text-balance">{cs.title}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{cs.summary}</p>
+              <p class="mt-4 border-t border-line pt-4 font-mono text-xs text-ink-soft">{cs.results[0]}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

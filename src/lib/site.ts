@@ -1,0 +1,128 @@
+export const site = {
+  name: "Moldstep",
+  legalName: "Moldstep LLC",
+  tagline: "Custom AI applications and IT consulting",
+  description:
+    "Moldstep LLC builds custom AI-powered applications and provides pragmatic IT consulting — from strategy to shipped software.",
+  email: "hello@moldstep.com",
+  url: "https://moldstep.com",
+} as const;
+
+export const nav = [
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+] as const;
+
+export interface Service {
+  title: string;
+  description: string;
+  points: string[];
+}
+
+export const services: Service[] = [
+  {
+    title: "Custom AI Applications",
+    description:
+      "End-to-end design and development of AI-powered products — LLM apps, chat assistants, document intelligence, and decision-support tools built around your data and workflows.",
+    points: [
+      "LLM-powered products and copilots",
+      "Retrieval-augmented generation (RAG) over your data",
+      "Model evaluation, guardrails, and monitoring",
+    ],
+  },
+  {
+    title: "AI Integration & Automation",
+    description:
+      "We plug AI into the systems you already run. Automate document processing, support triage, reporting, and repetitive back-office work with measurable ROI.",
+    points: [
+      "Workflow and back-office automation",
+      "AI features inside existing products",
+      "Integration with CRMs, ERPs, and internal tools",
+    ],
+  },
+  {
+    title: "Web & Mobile Development",
+    description:
+      "Modern, fast, maintainable applications — from marketing sites to complex SaaS platforms — built with proven stacks and shipped with CI/CD from day one.",
+    points: [
+      "SaaS platforms and internal tools",
+      "High-performance websites and portals",
+      "API design and third-party integrations",
+    ],
+  },
+  {
+    title: "IT Strategy Consulting",
+    description:
+      "Senior technical guidance without the enterprise overhead. We help you choose the right architecture, stack, and roadmap before you commit budget.",
+    points: [
+      "Technical audits and architecture reviews",
+      "AI-readiness and adoption roadmaps",
+      "Vendor and build-vs-buy evaluations",
+    ],
+  },
+  {
+    title: "Cloud & DevOps",
+    description:
+      "Reliable infrastructure that scales with you. We set up cloud environments, pipelines, and observability so your team ships faster and sleeps better.",
+    points: [
+      "Cloud architecture and migrations",
+      "CI/CD pipelines and infrastructure as code",
+      "Monitoring, alerting, and cost optimization",
+    ],
+  },
+  {
+    title: "Data Engineering & Analytics",
+    description:
+      "Turn scattered data into a foundation for decisions — and for AI. Pipelines, warehouses, and dashboards that give you one version of the truth.",
+    points: [
+      "Data pipelines and warehousing",
+      "Dashboards and reporting",
+      "Data preparation for AI and ML workloads",
+    ],
+  },
+];
+
+export interface CaseStudy {
+  title: string;
+  category: string;
+  summary: string;
+  results: string[];
+}
+
+export const caseStudies: CaseStudy[] = [
+  {
+    title: "AI document assistant for a logistics operator",
+    category: "Custom AI Application",
+    summary:
+      "Replaced manual review of shipping documents with an AI assistant that extracts, validates, and routes paperwork automatically.",
+    results: [
+      "85% less manual document handling",
+      "Processing time cut from hours to minutes",
+      "Deployed and adopted in under 3 months",
+    ],
+  },
+  {
+    title: "Booking platform for a wellness business",
+    category: "Web Development",
+    summary:
+      "Designed and built a full scheduling and booking platform — classes, payments, and an admin panel — on a modern serverless stack.",
+    results: [
+      "Online bookings from day one",
+      "Zero-maintenance serverless hosting",
+      "Admin time reduced by half",
+    ],
+  },
+  {
+    title: "AI adoption roadmap for a mid-size enterprise",
+    category: "IT Consulting",
+    summary:
+      "Audited existing systems and data, identified high-ROI automation candidates, and delivered a phased AI adoption plan the internal team could execute.",
+    results: [
+      "12 automation opportunities identified",
+      "3 quick wins shipped within the first quarter",
+      "Clear 18-month technology roadmap",
+    ],
+  },
+];

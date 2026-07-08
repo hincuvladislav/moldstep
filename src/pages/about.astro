@@ -1,0 +1,82 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import CtaSection from "@components/CtaSection.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import { site } from "@lib/site";
+
+const values = [
+  {
+    title: "Honesty over hype",
+    text: "If a simpler tool, an off-the-shelf product, or no AI at all is the right answer, that's the recommendation you'll get.",
+  },
+  {
+    title: "Ownership",
+    text: "We treat your product like our own — from architecture decisions to the last deployment detail.",
+  },
+  {
+    title: "Clarity",
+    text: "Plain-language communication, transparent estimates, and no invoices that need decoding.",
+  },
+  {
+    title: "Craft",
+    text: "Code is read more than it's written. We build systems the next engineer will thank us for.",
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="Moldstep LLC is a senior software team building custom AI applications and providing IT consulting for companies that want technology to pay off."
+>
+  <section class="border-b border-line bg-surface">
+    <div class="container-site py-20 md:py-28">
+      <p class="eyebrow mb-5">About</p>
+      <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-5xl">
+        A small senior team with an outsized delivery record
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-muted">
+        {site.legalName} exists because most companies don't need a 200-person agency — they need a handful of
+        experienced engineers who understand the business problem and ship.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container-site grid gap-12 py-20 md:grid-cols-2 md:py-28">
+      <SectionHeading eyebrow="Our story" title="From enterprise systems to AI-first products" />
+      <div class="space-y-5 text-lg leading-relaxed text-ink-soft">
+        <p>
+          We started as engineers inside large delivery organizations, watching good projects drown in process and
+          hand-offs. Moldstep is the alternative: direct access to the people actually building your software.
+        </p>
+        <p>
+          Today we focus on where technology is moving — custom AI applications, intelligent automation, and the cloud
+          infrastructure underneath — while keeping the full-stack skills to deliver anything from a marketing site to
+          an enterprise integration.
+        </p>
+        <p>
+          We're deliberately not limited to one niche. What stays constant is the standard: senior work, honest advice,
+          and software that runs in production.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-line bg-surface">
+    <div class="container-site py-20 md:py-28">
+      <SectionHeading eyebrow="Values" title="What working with us feels like" />
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        {
+          values.map((value) => (
+            <div class="rounded-xl border border-line bg-white p-6">
+              <h3 class="font-semibold">{value.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{value.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

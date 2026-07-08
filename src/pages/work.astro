@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import CtaSection from "@components/CtaSection.astro";
+import { caseStudies } from "@lib/site";
+---
+
+<BaseLayout
+  title="Work"
+  description="Case studies from Moldstep LLC — custom AI applications, web platforms, and IT consulting engagements with measurable results."
+>
+  <section class="border-b border-line bg-surface">
+    <div class="container-site py-20 md:py-28">
+      <p class="eyebrow mb-5">Work</p>
+      <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-5xl">
+        Case studies with numbers attached
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-muted">
+        A selection of recent engagements. Every project below shipped to production and is measured by the outcomes it
+        produced — not the technology behind it.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container-site divide-y divide-line">
+      {
+        caseStudies.map((cs) => (
+          <article class="grid gap-8 py-14 md:grid-cols-[2fr_1fr] md:gap-16">
+            <div>
+              <span class="eyebrow">{cs.category}</span>
+              <h2 class="mt-3 text-2xl font-semibold tracking-tight text-balance">{cs.title}</h2>
+              <p class="mt-4 text-lg leading-relaxed text-ink-soft">{cs.summary}</p>
+            </div>
+            <div class="rounded-xl border border-line bg-surface p-6">
+              <p class="eyebrow mb-4">Results</p>
+              <ul class="space-y-3">
+                {cs.results.map((result) => (
+                  <li class="flex items-start gap-3 text-sm text-ink-soft">
+                    <span class="mt-2 h-px w-4 shrink-0 bg-ink" aria-hidden="true" />
+                    {result}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaSection title="Want results like these?" text="Tell us about your project and we'll show you what's possible." />
+</BaseLayout>

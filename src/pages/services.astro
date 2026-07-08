@@ -1,0 +1,54 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import CtaSection from "@components/CtaSection.astro";
+import { services } from "@lib/site";
+---
+
+<BaseLayout
+  title="Services"
+  description="Custom AI applications, AI integration, web and mobile development, IT strategy consulting, cloud, DevOps, and data engineering — delivered by Moldstep LLC."
+>
+  <section class="border-b border-line bg-surface">
+    <div class="container-site py-20 md:py-28">
+      <p class="eyebrow mb-5">Services</p>
+      <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-5xl">
+        Everything you need to design, build, and run modern software
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-muted">
+        AI is our core strength, but we're not limited to it. Whatever the engagement, the goal is the same: working
+        software and measurable business impact.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container-site divide-y divide-line">
+      {
+        services.map((service, i) => (
+          <article class="grid gap-6 py-14 md:grid-cols-[1fr_2fr] md:gap-16">
+            <div>
+              <span class="font-mono text-sm text-muted">{String(i + 1).padStart(2, "0")}</span>
+              <h2 class="mt-2 text-2xl font-semibold tracking-tight">{service.title}</h2>
+            </div>
+            <div class="space-y-6">
+              <p class="text-lg leading-relaxed text-ink-soft">{service.description}</p>
+              <ul class="space-y-2">
+                {service.points.map((point) => (
+                  <li class="flex items-start gap-3 text-sm text-muted">
+                    <span class="mt-2 h-px w-4 shrink-0 bg-ink" aria-hidden="true" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaSection
+    title="Not sure which service you need?"
+    text="Describe the problem — we'll help you figure out the right approach before any commitment."
+  />
+</BaseLayout>
