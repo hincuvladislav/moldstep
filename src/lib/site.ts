@@ -9,13 +9,14 @@ export const site = {
 } as const;
 
 /**
- * Formspree form ID (the part after /f/ in the form's endpoint URL).
- * Create a form at https://formspree.io and paste its ID here.
- * Both the contact and project-brief forms post to this endpoint;
- * submissions carry a "form" field telling them apart.
+ * Form delivery via FormSubmit (https://formsubmit.co) — no account needed.
+ * The FIRST submission triggers an activation email to this address; click
+ * the link in it once, and every submission after that is delivered.
+ * After activation, FormSubmit shows a random alias for this address —
+ * swap it in here to keep the raw email out of the page source.
+ * Both forms post here; the "form" field tells them apart.
  */
-export const FORMSPREE_ID = "YOUR_FORM_ID";
-export const formEndpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
+export const formEndpoint = "https://formsubmit.co/ajax/hincuvladislav@gmail.com";
 
 export const nav = [
   { label: "Services", href: "/#services" },

@@ -18,6 +18,7 @@ const pageTitle = title === site.name ? `${site.name} — ${site.tagline}` : `${
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0e0f13" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
@@ -64,7 +65,11 @@ const pageTitle = title === site.name ? `${site.name} — ${site.tagline}` : `${
       // Touch devices: hover never fires, so expandable cards toggle on tap.
       if (window.matchMedia("(hover: none)").matches) {
         document.querySelectorAll<HTMLElement>("[data-expand]").forEach((card) => {
-          card.addEventListener("click", () => card.classList.toggle("is-open"));
+          card.setAttribute("aria-expanded", "false");
+          card.addEventListener("click", () => {
+            const open = card.classList.toggle("is-open");
+            card.setAttribute("aria-expanded", String(open));
+          });
         });
       }
 

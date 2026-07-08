@@ -38,4 +38,6 @@ src/
 
 All copy for services and case studies lives in `src/lib/site.ts` — edit there, not in the page templates.
 
-The contact form posts to Formspree: create a free form at [formspree.io](https://formspree.io) and replace `YOUR_FORM_ID` in `src/pages/contact.astro`.
+## Forms
+
+The contact and project-brief forms deliver via [FormSubmit](https://formsubmit.co) — no account required. The endpoint (email address) is set in `formEndpoint` in `src/lib/site.ts`. The first submission triggers an activation email to that address; click the link once and delivery starts working. After activation, FormSubmit provides a random alias for the address — swap it into `formEndpoint` to keep the raw email out of the page source.

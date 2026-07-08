@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://moldstep.com/sitemap-index.xml

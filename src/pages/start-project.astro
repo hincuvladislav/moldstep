@@ -70,6 +70,8 @@ const steps = [
         >
           <input type="hidden" name="form" value="project-brief" />
           <input type="hidden" name="_subject" value="New project brief from moldstep.com" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
           <!-- 01 · About you -->
           <div class="flex items-center gap-2.5 border-b border-edge-2 pb-3">
             <span class="font-mono text-[13px] text-dusk-3">01</span>
@@ -255,9 +257,13 @@ const steps = [
       }
 
       try {
-        if (form.action.includes("YOUR_FORM_ID")) throw new Error("Formspree form ID not configured");
         const res = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
-        if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+        // FormSubmit returns 200 even on failure (e.g. unactivated form) —
+        // the JSON "success" field is the real delivery signal.
+        const result = await res.json().catch(() => null);
+        if (!res.ok || String(result?.success) !== "true") {
+          throw new Error(result?.message || `Form service responded ${res.status}`);
+        }
         form.classList.add("hidden");
         sentCard?.classList.remove("hidden");
         sentCard?.scrollIntoView({ behavior: "smooth", block: "center" });

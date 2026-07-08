@@ -151,6 +151,18 @@
     }
   }
 
+  /* Keyboard access: focusing a card expands it like hover does */
+  [data-expand]:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  [data-expand]:focus-visible .expandable,
+  [data-expand]:focus-within .expandable {
+    max-height: 340px;
+    opacity: 1;
+  }
+
   [data-expand].is-open .expandable {
     max-height: 340px;
     opacity: 1;
@@ -202,5 +214,20 @@
   }
   50% {
     transform: rotateX(calc(var(--bx, 12deg) + 3deg)) rotateY(calc(var(--by, -16deg) + 5deg));
+  }
+}
+
+/* Respect the user's motion preference: freeze decorative animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
