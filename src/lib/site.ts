@@ -8,6 +8,15 @@ export const site = {
   url: "https://moldstep.com",
 } as const;
 
+/**
+ * Formspree form ID (the part after /f/ in the form's endpoint URL).
+ * Create a form at https://formspree.io and paste its ID here.
+ * Both the contact and project-brief forms post to this endpoint;
+ * submissions carry a "form" field telling them apart.
+ */
+export const FORMSPREE_ID = "YOUR_FORM_ID";
+export const formEndpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
+
 export const nav = [
   { label: "Services", href: "/#services" },
   { label: "Work", href: "/#work" },

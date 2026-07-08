@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Footer from "@components/Footer.astro";
-import { site } from "@lib/site";
+import { formEndpoint, site } from "@lib/site";
 
 const topics = ["Custom AI app", "Automation", "Web / mobile", "Consulting", "Cloud & data"];
 ---
@@ -89,13 +89,14 @@ const topics = ["Custom AI app", "Automation", "Web / mobile", "Consulting", "Cl
           </button>
         </div>
 
-        {/* Posts to Formspree — replace YOUR_FORM_ID after creating a free form at formspree.io */}
         <form
           id="contact-form"
-          action="https://formspree.io/f/YOUR_FORM_ID"
+          action={formEndpoint}
           method="POST"
           class="mt-6 flex flex-col gap-[18px] rounded-[18px] border border-edge-2 bg-night-card p-9"
         >
+          <input type="hidden" name="form" value="contact" />
+          <input type="hidden" name="_subject" value="New message from moldstep.com" />
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="flex flex-col gap-2">
               <label for="name" class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">Name</label>
@@ -134,10 +135,14 @@ const topics = ["Custom AI app", "Automation", "Web / mobile", "Consulting", "Cl
           </div>
           <button
             type="submit"
-            class="cursor-pointer rounded-[10px] bg-white p-[15px] text-[15px] font-medium text-night transition-colors hover:bg-[#d7d9de]"
+            class="cursor-pointer rounded-[10px] bg-white p-[15px] text-[15px] font-medium text-night transition-colors hover:bg-[#d7d9de] disabled:cursor-wait disabled:opacity-60"
           >
             Send message
           </button>
+          <p id="form-error" class="hidden text-center text-[13px] text-[#e08d8d]">
+            Something went wrong sending your message. Please try again, or email us directly at{" "}
+            <a href={`mailto:${site.email}`} class="underline">{site.email}</a>.
+          </p>
         </form>
       </div>
     </div>
@@ -162,24 +167,29 @@ const topics = ["Custom AI app", "Automation", "Web / mobile", "Consulting", "Cl
 
     form?.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const errorBox = document.getElementById("form-error");
+      const submitButton = form.querySelector<HTMLButtonElement>("button[type='submit']");
+      errorBox?.classList.add("hidden");
+      if (submitButton) submitButton.disabled = true;
+
       const data = new FormData(form);
       const selected = [...form.querySelectorAll<HTMLButtonElement>("[data-topic][aria-pressed='true']")].map(
         (chip) => chip.dataset.topic
       );
       data.append("topics", selected.join(", "));
 
-      if (!form.action.includes("YOUR_FORM_ID")) {
-        try {
-          await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
-        } catch (err) {
-          console.error("Form submission failed", err);
-        }
-      } else {
-        console.warn("Formspree form ID not configured — message not actually sent.");
+      try {
+        if (form.action.includes("YOUR_FORM_ID")) throw new Error("Formspree form ID not configured");
+        const res = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+        if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+        form.classList.add("hidden");
+        sentCard?.classList.remove("hidden");
+      } catch (err) {
+        console.error("Form submission failed", err);
+        errorBox?.classList.remove("hidden");
+      } finally {
+        if (submitButton) submitButton.disabled = false;
       }
-
-      form.classList.add("hidden");
-      sentCard?.classList.remove("hidden");
     });
 
     sendAnother?.addEventListener("click", () => {

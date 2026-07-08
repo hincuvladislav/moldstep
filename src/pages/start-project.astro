@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Footer from "@components/Footer.astro";
-import { site } from "@lib/site";
+import { formEndpoint, site } from "@lib/site";
 
 const projectTypes = ["Custom AI app", "AI integration / automation", "Web / mobile app", "IT consulting", "Cloud & DevOps", "Data & analytics", "Something else"];
 const budgets = ["Under $10k", "$10k – $25k", "$25k – $50k", "$50k – $100k", "$100k+", "Not sure yet"];
@@ -62,13 +62,14 @@ const steps = [
           <a href="/" class="btn-ghost-dark mt-6 !px-[22px] !py-[11px] !text-sm">Back to homepage</a>
         </div>
 
-        {/* Posts to Formspree — replace YOUR_FORM_ID after creating a free form at formspree.io */}
         <form
           id="brief-form"
-          action="https://formspree.io/f/YOUR_FORM_ID"
+          action={formEndpoint}
           method="POST"
           class="mt-6 flex flex-col gap-6 rounded-[18px] border border-edge-2 bg-night-card p-9"
         >
+          <input type="hidden" name="form" value="project-brief" />
+          <input type="hidden" name="_subject" value="New project brief from moldstep.com" />
           <!-- 01 · About you -->
           <div class="flex items-center gap-2.5 border-b border-edge-2 pb-3">
             <span class="font-mono text-[13px] text-dusk-3">01</span>
@@ -199,10 +200,14 @@ const steps = [
 
           <button
             type="submit"
-            class="cursor-pointer rounded-[10px] bg-white p-[15px] text-[15px] font-medium text-night transition-colors hover:bg-[#d7d9de]"
+            class="cursor-pointer rounded-[10px] bg-white p-[15px] text-[15px] font-medium text-night transition-colors hover:bg-[#d7d9de] disabled:cursor-wait disabled:opacity-60"
           >
             Send the brief
           </button>
+          <p id="form-error" class="hidden text-center text-[13px] text-[#e08d8d]">
+            Something went wrong sending your brief. Please try again, or email it to{" "}
+            <a href={`mailto:${site.email}`} class="underline">{site.email}</a>.
+          </p>
           <p class="text-center text-xs text-dusk-4">
             Prefer email? Send it all to <a href={`mailto:${site.email}`} class="text-dusk-2 hover:text-white">{site.email}</a>.
           </p>
@@ -236,6 +241,11 @@ const steps = [
 
     form?.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const errorBox = document.getElementById("form-error");
+      const submitButton = form.querySelector<HTMLButtonElement>("button[type='submit']");
+      errorBox?.classList.add("hidden");
+      if (submitButton) submitButton.disabled = true;
+
       const data = new FormData(form);
       for (const group of ["type", "budget", "timeline"]) {
         const selected = [...form.querySelectorAll<HTMLButtonElement>(`[data-chip][data-group="${group}"][aria-pressed='true']`)]
@@ -244,19 +254,19 @@ const steps = [
         data.append(group, selected);
       }
 
-      if (!form.action.includes("YOUR_FORM_ID")) {
-        try {
-          await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
-        } catch (err) {
-          console.error("Form submission failed", err);
-        }
-      } else {
-        console.warn("Formspree form ID not configured — brief not actually sent.");
+      try {
+        if (form.action.includes("YOUR_FORM_ID")) throw new Error("Formspree form ID not configured");
+        const res = await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+        if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+        form.classList.add("hidden");
+        sentCard?.classList.remove("hidden");
+        sentCard?.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (err) {
+        console.error("Form submission failed", err);
+        errorBox?.classList.remove("hidden");
+      } finally {
+        if (submitButton) submitButton.disabled = false;
       }
-
-      form.classList.add("hidden");
-      sentCard?.classList.remove("hidden");
-      sentCard?.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   </script>
 </BaseLayout>
