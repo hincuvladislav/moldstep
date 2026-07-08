@@ -1,0 +1,262 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Footer from "@components/Footer.astro";
+import { site } from "@lib/site";
+
+const projectTypes = ["Custom AI app", "AI integration / automation", "Web / mobile app", "IT consulting", "Cloud & DevOps", "Data & analytics", "Something else"];
+const budgets = ["Under $10k", "$10k – $25k", "$25k – $50k", "$50k – $100k", "$100k+", "Not sure yet"];
+const timelines = ["ASAP", "Within 1–3 months", "3–6 months", "Flexible"];
+
+const steps = [
+  { num: "01", text: "You send the brief below — rough answers are fine." },
+  { num: "02", text: "We reply within one business day with questions and first thoughts." },
+  { num: "03", text: "A 30-minute call, then a proposal with scope, timeline, and budget." },
+];
+---
+
+<BaseLayout
+  title="Start a project"
+  description="Tell Moldstep LLC about your project — goals, scope, budget, and timeline — and get a concrete proposal, not a sales pitch."
+>
+  <section class="relative overflow-hidden border-b border-[#1b1e25]">
+    <div class="hero-grid absolute inset-0"></div>
+    <div class="container-site relative flex flex-wrap gap-16 py-16 md:py-18">
+      <!-- left: intro -->
+      <div class="min-w-0 flex-1 md:min-w-[380px]">
+        <div class="eyebrow flex items-center gap-2.5 text-dusk-3">
+          <span class="h-px w-6 bg-[#3d414c]"></span>Start a project
+        </div>
+        <h1 class="mt-6 text-[clamp(38px,4.4vw,56px)] leading-[1.05] font-semibold tracking-[-0.03em]">
+          A short brief today, a concrete proposal this week.
+        </h1>
+        <p class="mt-6 max-w-[480px] text-[17px] leading-[1.65] text-dusk">
+          The more you tell us, the more precise our first answer can be — but don't overthink it. Just a question?
+          Use the <a href="/contact" class="border-b border-[#3d414c] text-white">contact page</a> instead.
+        </p>
+
+        <div class="mt-10 flex max-w-[440px] flex-col gap-4">
+          {
+            steps.map((s) => (
+              <div class="flex items-start gap-3.5 rounded-[14px] border border-edge-2 bg-night-card/60 px-5 py-4">
+                <span class="font-mono text-[13px] text-dusk-3">{s.num}</span>
+                <span class="text-sm leading-relaxed text-dusk">{s.text}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- right: brief form -->
+      <div class="min-w-0 flex-1 md:min-w-[420px] lg:max-w-[560px]">
+        <!-- sent state -->
+        <div id="sent-card" class="mt-6 hidden rounded-[18px] border border-edge-4 bg-night-card px-10 py-12 text-center">
+          <span class="mx-auto grid size-[52px] place-items-center rounded-full bg-white">
+            <svg viewBox="0 0 20 20" width="22" height="22">
+              <path d="M4 10.5l4 4 8-9" stroke="#0e0f13" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </span>
+          <div class="mt-5 text-[22px] font-semibold">Brief received</div>
+          <p class="mt-2.5 text-[14.5px] leading-relaxed text-dusk-2">
+            Thanks — we'll come back within one business day with questions and first thoughts.
+          </p>
+          <a href="/" class="btn-ghost-dark mt-6 !px-[22px] !py-[11px] !text-sm">Back to homepage</a>
+        </div>
+
+        {/* Posts to Formspree — replace YOUR_FORM_ID after creating a free form at formspree.io */}
+        <form
+          id="brief-form"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          class="mt-6 flex flex-col gap-6 rounded-[18px] border border-edge-2 bg-night-card p-9"
+        >
+          <!-- 01 · About you -->
+          <div class="flex items-center gap-2.5 border-b border-edge-2 pb-3">
+            <span class="font-mono text-[13px] text-dusk-3">01</span>
+            <span class="text-[15px] font-semibold">About you</span>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="name" class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">Name</label>
+              <input id="name" name="name" type="text" required placeholder="Jane Doe" class="input-dark" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="email" class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">Email</label>
+              <input id="email" name="email" type="email" required placeholder="jane@company.com" class="input-dark" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="company" class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">Company</label>
+              <input id="company" name="company" type="text" placeholder="Company name" class="input-dark" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="role" class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">
+                Your role <span class="text-[#565c68] normal-case">(optional)</span>
+              </label>
+              <input id="role" name="role" type="text" placeholder="CTO, founder, PM…" class="input-dark" />
+            </div>
+          </div>
+
+          <!-- 02 · The project -->
+          <div class="flex items-center gap-2.5 border-b border-edge-2 pb-3">
+            <span class="font-mono text-[13px] text-dusk-3">02</span>
+            <span class="text-[15px] font-semibold">The project</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">What kind of project? <span class="text-[#565c68] normal-case">(pick any)</span></span>
+            <div class="flex flex-wrap gap-2">
+              {
+                projectTypes.map((t) => (
+                  <button
+                    type="button"
+                    data-chip={t}
+                    data-group="type"
+                    data-multi
+                    aria-pressed="false"
+                    class="cursor-pointer rounded-full border border-edge-2 bg-transparent px-4 py-2 text-[12.5px] text-dusk-2 transition-colors hover:border-[#565c68] aria-pressed:bg-white aria-pressed:text-night"
+                  >
+                    {t}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="description" class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">
+              What are you building?
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              required
+              rows="4"
+              placeholder="Describe the product or problem. What exists today, what should exist after?"
+              class="input-dark resize-y"></textarea>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="goals" class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">
+              What does success look like?
+            </label>
+            <textarea
+              id="goals"
+              name="goals"
+              rows="3"
+              placeholder="e.g. cut manual processing by half, launch before Q4, replace a legacy tool…"
+              class="input-dark resize-y"></textarea>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="systems" class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">
+              Existing systems or stack <span class="text-[#565c68] normal-case">(optional)</span>
+            </label>
+            <input
+              id="systems"
+              name="systems"
+              type="text"
+              placeholder="e.g. Salesforce, SAP, a React app on AWS, spreadsheets everywhere…"
+              class="input-dark"
+            />
+          </div>
+
+          <!-- 03 · Practical details -->
+          <div class="flex items-center gap-2.5 border-b border-edge-2 pb-3">
+            <span class="font-mono text-[13px] text-dusk-3">03</span>
+            <span class="text-[15px] font-semibold">Practical details</span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">Budget range</span>
+            <div class="flex flex-wrap gap-2">
+              {
+                budgets.map((b) => (
+                  <button
+                    type="button"
+                    data-chip={b}
+                    data-group="budget"
+                    aria-pressed="false"
+                    class="cursor-pointer rounded-full border border-edge-2 bg-transparent px-4 py-2 text-[12.5px] text-dusk-2 transition-colors hover:border-[#565c68] aria-pressed:bg-white aria-pressed:text-night"
+                  >
+                    {b}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="font-mono text-[11px] tracking-[0.12em] text-dusk-3 uppercase">Timeline</span>
+            <div class="flex flex-wrap gap-2">
+              {
+                timelines.map((t) => (
+                  <button
+                    type="button"
+                    data-chip={t}
+                    data-group="timeline"
+                    aria-pressed="false"
+                    class="cursor-pointer rounded-full border border-edge-2 bg-transparent px-4 py-2 text-[12.5px] text-dusk-2 transition-colors hover:border-[#565c68] aria-pressed:bg-white aria-pressed:text-night"
+                  >
+                    {t}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="cursor-pointer rounded-[10px] bg-white p-[15px] text-[15px] font-medium text-night transition-colors hover:bg-[#d7d9de]"
+          >
+            Send the brief
+          </button>
+          <p class="text-center text-xs text-dusk-4">
+            Prefer email? Send it all to <a href={`mailto:${site.email}`} class="text-dusk-2 hover:text-white">{site.email}</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-night">
+    <div class="container-site">
+      <Footer />
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById("brief-form") as HTMLFormElement | null;
+    const sentCard = document.getElementById("sent-card");
+
+    // Chips: multi-select groups toggle freely; single-select groups clear siblings.
+    form?.querySelectorAll<HTMLButtonElement>("[data-chip]").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const pressed = chip.getAttribute("aria-pressed") === "true";
+        if (!("multi" in chip.dataset)) {
+          form
+            .querySelectorAll(`[data-chip][data-group="${chip.dataset.group}"]`)
+            .forEach((sibling) => sibling.setAttribute("aria-pressed", "false"));
+        }
+        chip.setAttribute("aria-pressed", String(!pressed));
+      });
+    });
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      for (const group of ["type", "budget", "timeline"]) {
+        const selected = [...form.querySelectorAll<HTMLButtonElement>(`[data-chip][data-group="${group}"][aria-pressed='true']`)]
+          .map((chip) => chip.dataset.chip)
+          .join(", ");
+        data.append(group, selected);
+      }
+
+      if (!form.action.includes("YOUR_FORM_ID")) {
+        try {
+          await fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+        } catch (err) {
+          console.error("Form submission failed", err);
+        }
+      } else {
+        console.warn("Formspree form ID not configured — brief not actually sent.");
+      }
+
+      form.classList.add("hidden");
+      sentCard?.classList.remove("hidden");
+      sentCard?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  </script>
+</BaseLayout>

@@ -6,6 +6,21 @@ import MiniScene from "@components/MiniScene.astro";
 import ProcessTimeline from "@components/ProcessTimeline.astro";
 import { caseStudies, services, site } from "@lib/site";
 
+const reasons = [
+  {
+    title: "Senior engineers only",
+    text: "Every project is delivered by experienced engineers — no hand-offs to juniors after the contract is signed.",
+  },
+  {
+    title: "AI where it pays off",
+    text: "We build AI systems for real workflows and measurable outcomes, not for the demo. If AI isn't the answer, we'll say so.",
+  },
+  {
+    title: "Boring, reliable delivery",
+    text: "Proven stacks, automated testing, CI/CD, and honest estimates. Surprises belong in the product, not the invoice.",
+  },
+];
+
 const stats = [
   { value: "85%", label: "less manual document handling on our last AI rollout" },
   { value: "<3 mo", label: "from kickoff to deployed, adopted software" },
@@ -35,8 +50,8 @@ const stats = [
           production and beyond — one senior team, end to end.
         </p>
         <div class="mt-9 flex flex-wrap gap-3.5">
-          <a href="/contact" class="btn-light">Start a project</a>
-          <a href="/services" class="btn-ghost-dark">Explore services</a>
+          <a href="/start-project" class="btn-light">Start a project</a>
+          <a href="#services" class="btn-ghost-dark">Explore services</a>
         </div>
       </div>
 
@@ -142,7 +157,7 @@ const stats = [
   </section>
 
   <!-- SERVICES -->
-  <section id="services" class="border-b border-line bg-surface text-ink">
+  <section id="services" class="scroll-mt-[68px] border-b border-line bg-surface text-ink">
     <div class="container-site py-22">
       <div class="flex flex-wrap items-end justify-between gap-8">
         <div>
@@ -154,13 +169,10 @@ const stats = [
         </p>
       </div>
 
-      <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-12 grid items-start gap-5 md:grid-cols-2 lg:grid-cols-3">
         {
           services.map((s) => (
-            <a
-              href="/services"
-              class="group flex cursor-pointer flex-col gap-2.5 rounded-[14px] border border-line-2 bg-white p-7 shadow-[0_1px_2px_rgba(24,24,27,0.04)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-ink hover:shadow-[0_24px_48px_rgba(24,24,27,0.14)]"
-            >
+            <div class="group flex flex-col gap-2.5 rounded-[14px] border border-line-2 bg-white p-7 shadow-[0_1px_2px_rgba(24,24,27,0.04)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-ink hover:shadow-[0_24px_48px_rgba(24,24,27,0.14)]">
               <div class="flex items-center justify-between">
                 <span class="font-mono text-xs text-ghost">{s.num}</span>
                 <span class="text-base text-ghost">→</span>
@@ -185,7 +197,7 @@ const stats = [
                   </div>
                 </div>
               </div>
-            </a>
+            </div>
           ))
         }
       </div>
@@ -193,7 +205,7 @@ const stats = [
   </section>
 
   <!-- PROCESS -->
-  <section id="process" class="border-b border-[#e0e0e3] bg-surface-2 text-ink">
+  <section id="process" class="scroll-mt-[68px] border-b border-[#e0e0e3] bg-surface-2 text-ink">
     <div class="container-site py-22">
       <div class="eyebrow text-faint">How we work</div>
       <h2 class="mt-3.5 text-[40px] font-semibold tracking-[-0.025em]">A simple process, on purpose</h2>
@@ -202,14 +214,13 @@ const stats = [
   </section>
 
   <!-- WORK -->
-  <section id="work" class="border-b border-line bg-surface text-ink">
+  <section id="work" class="scroll-mt-[68px] border-b border-line bg-surface text-ink">
     <div class="container-site py-22">
       <div class="flex flex-wrap items-end justify-between gap-8">
         <div>
           <div class="eyebrow text-faint">Selected work</div>
           <h2 class="mt-3.5 text-[40px] font-semibold tracking-[-0.025em]">Results, not slide decks</h2>
         </div>
-        <a href="/work" class="btn-ghost-light">All case studies</a>
       </div>
 
       <div class="mt-12 grid gap-5 [perspective:900px] md:grid-cols-3">
@@ -230,6 +241,37 @@ const stats = [
                 <div class="mt-auto border-t border-line pt-3.5 font-mono text-xs text-ink-soft">{c.result}</div>
               </div>
             </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="scroll-mt-[68px] bg-surface-2 text-ink">
+    <div class="container-site py-22">
+      <div class="flex flex-wrap items-end justify-between gap-8">
+        <div>
+          <div class="eyebrow text-faint">About Moldstep</div>
+          <h2 class="mt-3.5 text-[40px] font-semibold tracking-[-0.025em]">Built like partners, not vendors</h2>
+        </div>
+        <p class="max-w-[360px] text-[15px] leading-relaxed text-slate">
+          A small senior team, on purpose — the people who scope your project are the ones who build it.
+        </p>
+      </div>
+      <div class="mt-11 grid gap-5 [perspective:1000px] md:grid-cols-3">
+        {
+          reasons.map((r) => (
+            <div
+              class="rounded-[14px] border border-line-2 bg-white p-7 hover:border-[#b9b9c0] hover:shadow-[0_20px_40px_rgba(24,24,27,0.1)]"
+              style="transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s ease-out"
+              data-tilt="8"
+              data-lift="-4"
+            >
+              <div class="h-[3px] w-10 rounded-full bg-ink"></div>
+              <div class="mt-[18px] text-lg font-semibold">{r.title}</div>
+              <p class="mt-2.5 text-sm leading-[1.65] text-slate">{r.text}</p>
+            </div>
           ))
         }
       </div>
