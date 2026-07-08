@@ -24,7 +24,7 @@ const {
 <section {id} class="relative overflow-hidden border-t border-[#1b1e25] bg-night" data-parallax={float ? "" : undefined}>
   {
     float && (
-      <div class="pointer-events-none absolute inset-0 hidden [perspective:1100px] min-[1150px]:block">
+      <div class="pointer-events-none absolute inset-0 hidden [perspective:1100px] xl:block">
         <div
           class="absolute inset-0 transition-transform duration-[250ms] ease-out [transform-style:preserve-3d]"
           data-scene
@@ -67,7 +67,44 @@ const {
     )
   }
 
-  <div class:list={["container-site relative", float ? "pt-24" : "pt-20"]}>
+  <div class:list={["container-site relative", float ? "pt-16 xl:pt-24" : "pt-20"]}>
+    {
+      float && (
+        <div class="pointer-events-none relative mx-auto mb-8 h-[190px] w-[min(400px,90vw)] [perspective:1000px] xl:hidden">
+          <div class="relative h-full w-full [transform-style:preserve-3d]" style="transform:rotateX(10deg) rotateY(-8deg)">
+            <div
+              class="absolute top-1 left-0 w-[200px] rounded-[14px] border border-edge-3 bg-night-card/90 px-4 py-3.5 shadow-[0_24px_50px_rgba(0,0,0,0.5)]"
+              style="transform:translateZ(-20px) rotate(-3deg);animation:ms-float2 6.5s ease-in-out infinite"
+            >
+              <div class="font-mono text-[11px] text-dusk-3">you → {site.email}</div>
+              <div class="mt-2 flex flex-col gap-1.5">
+                <span class="h-2 w-[130px] rounded-sm bg-[#3d414c]" />
+                <span class="h-2 w-[90px] rounded-sm bg-edge-2" />
+              </div>
+            </div>
+            <div
+              class="absolute top-[78px] right-0 w-[210px] rounded-[14px] border border-edge-4 bg-night-card/95 px-4 py-3.5 shadow-[0_24px_50px_rgba(0,0,0,0.55)]"
+              style="transform:translateZ(50px) rotate(2deg);animation:ms-float 6s ease-in-out infinite 0.6s"
+            >
+              <div class="flex items-center gap-2 font-mono text-[11px] text-steel">
+                <span class="grid size-5 place-items-center rounded-full bg-white text-[9px] font-bold text-night">M</span>
+                reply · within 1 business day
+              </div>
+              <div class="mt-2 flex flex-col gap-1.5">
+                <span class="h-2 w-[140px] rounded-sm bg-[#3d414c]" />
+                <span class="h-2 w-[80px] rounded-sm bg-edge-2" />
+              </div>
+            </div>
+            <div
+              class="absolute bottom-1 left-6 rounded-full border border-edge-3 bg-night-card/90 px-3.5 py-2 font-mono text-[11px] text-dusk-2"
+              style="transform:translateZ(80px) rotate(1deg);animation:ms-float 5.4s ease-in-out infinite 1s"
+            >
+              no sales theater, promise
+            </div>
+          </div>
+        </div>
+      )
+    }
     <div class:list={["text-center", float ? "pb-22" : "pb-18"]}>
       <h2 class:list={["font-semibold tracking-[-0.025em]", float ? "text-[46px]" : "text-[40px]"]}>{title}</h2>
       <p class="mx-auto mt-4 max-w-[480px] text-base leading-relaxed text-dusk-2 md:text-[17px]">{text}</p>

@@ -37,20 +37,27 @@ const pageTitle = title === site.name ? `${site.name} — ${site.tagline}` : `${
       // Mouse-parallax for 3D scenes: a [data-parallax] zone rotates its
       // [data-scene] child around base angles as the cursor moves.
       document.querySelectorAll<HTMLElement>("[data-parallax]").forEach((zone) => {
-        const scene = zone.querySelector<HTMLElement>("[data-scene]");
-        if (!scene) return;
-        const baseX = parseFloat(scene.dataset.baseX ?? "12");
-        const baseY = parseFloat(scene.dataset.baseY ?? "-16");
-        const rangeX = parseFloat(scene.dataset.rangeX ?? "14");
-        const rangeY = parseFloat(scene.dataset.rangeY ?? "18");
+        const scenes = [...zone.querySelectorAll<HTMLElement>("[data-scene]")];
+        if (!scenes.length) return;
+        const params = scenes.map((scene) => ({
+          scene,
+          baseX: parseFloat(scene.dataset.baseX ?? "12"),
+          baseY: parseFloat(scene.dataset.baseY ?? "-16"),
+          rangeX: parseFloat(scene.dataset.rangeX ?? "14"),
+          rangeY: parseFloat(scene.dataset.rangeY ?? "18"),
+        }));
         zone.addEventListener("mousemove", (e) => {
           const r = zone.getBoundingClientRect();
           const x = (e.clientX - r.left) / r.width - 0.5;
           const y = (e.clientY - r.top) / r.height - 0.5;
-          scene.style.transform = `rotateX(${baseX - y * rangeX}deg) rotateY(${baseY + x * rangeY}deg)`;
+          params.forEach(({ scene, baseX, baseY, rangeX, rangeY }) => {
+            scene.style.transform = `rotateX(${baseX - y * rangeX}deg) rotateY(${baseY + x * rangeY}deg)`;
+          });
         });
         zone.addEventListener("mouseleave", () => {
-          scene.style.transform = `rotateX(${baseX}deg) rotateY(${baseY}deg)`;
+          params.forEach(({ scene, baseX, baseY }) => {
+            scene.style.transform = `rotateX(${baseX}deg) rotateY(${baseY}deg)`;
+          });
         });
       });
 
